@@ -1,0 +1,85 @@
+{
+  "name": "@maticnetwork/lxlyjs",
+  "version": "0.0.1",
+  "description": "Javascript developer library for interacting with Polygon LxLy Bridge",
+  "main": "dist/npm.export.js",
+  "types": "dist/ts/index.d.ts",
+  "browser": "dist/lxly.umd.js",
+  "react-native": "dist/lxly.node.js",
+  "files": [
+    "lib",
+    "dist",
+    "artifacts",
+    "types"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run build:dev",
+    "build:link": "npm run build && npm link",
+    "build:webpack": "npm run lint && webpack --config webpack/webpack.all.config.js",
+    "build:pack": "npm run clean && npm run build:dev && npm pack",
+    "build:dev": "cross-env NODE_ENV=development npm run build:webpack",
+    "build:prod": "cross-env NODE_ENV=production npm run build:webpack",
+    "deploy": "npm run clean && npm run build:dev && npm run build:prod",
+    "prepublishOnly": "npm run deploy",
+    "lint": "tslint src/**/*.ts",
+    "lint:fix": "tslint src/**/*.ts --fix",
+    "build:test": "npm run build:pack && npm run test",
+    "test": "cd test && npm run install:lib:test",
+    "debug": "npm run build:pack && cd test && npm run install:lib:debug",
+    "testrpc": "ganache-cli --mnemonic 'clock radar mass judge dismiss just intact mind resemble fringe diary casino' --gasLimit 13000000",
+    "install:example": "cd examples && npm i ../maticnetwork-lxly.js-0.0.1.tgz --no-save"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xpolygon/lxly.js.git"
+  },
+  "keywords": [
+    "ethereum",
+    "web3",
+    "ethers",
+    "matic"
+  ],
+  "author": "nitinmittal23",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0xpolygon/lxly.js/issues"
+  },
+  "homepage": "https://github.com/0xpolygon/lxly.js#readme",
+  "dependencies": {
+    "@ethereumjs/block": "^3.6.2",
+    "ethereumjs-util": "^7.1.4",
+    "merkle-patricia-tree": "^4.2.4",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.12",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
+    "copy-webpack-plugin": "^6.1.1",
+    "cross-env": "^7.0.3",
+    "husky": "2.4.1",
+    "lint-staged": "8.2.1",
+    "rimraf": "^3.0.2",
+    "smart-banner-webpack-plugin": "^3.0.1",
+    "ts-loader": "^8.0.0",
+    "tslint": "^6.1.3",
+    "typescript": "^4.6.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "node 8",
+    "not dead"
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build"
+    }
+  }
+}
