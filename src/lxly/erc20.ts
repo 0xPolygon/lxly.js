@@ -356,9 +356,9 @@ export class ERC20 extends Token {
      * @returns
      * @memberof ERC20
      */
-    claimCustomERC20(transactionHash: string, sourceNetworkId: number, option?: ITransactionOption) {
+    claimCustomERC20(transactionHash: string, sourceNetworkId: number, isRefuel?: boolean, option?: ITransactionOption) {
         return this.bridgeUtil.buildPayloadForClaim(
-            transactionHash, sourceNetworkId
+            transactionHash, sourceNetworkId, isRefuel || false
         ).then(payload => {
             if (payload.smtProofRollup) {
                 return this.bridge.claimMessageNew(
@@ -395,7 +395,7 @@ export class ERC20 extends Token {
 
 
     /**
-     * Complete deposit after GlobalExitRootManager is synced from Parent to root
+     * Claim Assets after GlobalExitRootManager is synced from source to destination
      *
      * @param {string} transactionHash
      * @param {number} sourceNetworkId
@@ -403,9 +403,9 @@ export class ERC20 extends Token {
      * @returns
      * @memberof ERC20
      */
-    claimAsset(transactionHash: string, sourceNetworkId: number, option?: ITransactionOption) {
+    claimAsset(transactionHash: string, sourceNetworkId: number, isRefuel?: boolean, option?: ITransactionOption) {
         return this.bridgeUtil.buildPayloadForClaim(
-            transactionHash, sourceNetworkId
+            transactionHash, sourceNetworkId, isRefuel || false
         ).then(payload => {
             if (payload.smtProofRollup) {
                 return this.bridge.claimAssetNew(
@@ -438,6 +438,45 @@ export class ERC20 extends Token {
                 );
             }
         });
+    }
+
+    /**
+     * Claim Assets after GlobalExitRootManager is synced from source to destination
+     *
+     * @param {string} transactionHash
+     * @param {number} sourceNetworkId
+     * @param {ITransactionOption} [option]
+     * @returns
+     * @memberof ERC20
+     */
+    claimAssetRaw(
+        smtProof: string[],
+        smtProofRollup: string[],
+        index: number,
+        mainnetExitRoot: string,
+        rollupExitRoot: string,
+        originNetwork: number,
+        originTokenAddress: string,
+        destinationNetwork: number,
+        destinationAddress: string,
+        amount: TYPE_AMOUNT,
+        metadata: string,
+        option?: ITransactionOption
+    ) {
+        return this.bridge.claimAssetNew(
+            smtProof,
+            smtProofRollup,
+            index,
+            mainnetExitRoot,
+            rollupExitRoot,
+            originNetwork,
+            originTokenAddress,
+            destinationNetwork,
+            destinationAddress,
+            amount,
+            metadata,
+            option
+        );
     }
 
     /**
