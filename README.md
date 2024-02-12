@@ -113,8 +113,20 @@ const erc20 = new client.erc20(tokenAddress, networkId);
 const balance = erc20.getBalance(address);
 ```
 
-For the complete function implementation, please refer to the example [here](./test/debug_web3.js) or codebase available [here](./src/lxly/index.ts).
+### Custom Contracts
 
+```typescript
+// Initialize Custom contract
+const customContract = new client.contract(abi, tokenAddress, networkId);
+
+// read contract
+await customContract.read(methodName, ...args);
+
+// write contract
+await customContract.write(transactionOptions = {}, methodName, ...args);
+```
+
+For the complete function implementation, please refer to the example [here](./test/debug_web3.js) or codebase available [here](./src/lxly/index.ts).
 
 ## Support
 

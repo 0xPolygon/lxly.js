@@ -356,9 +356,9 @@ export class ERC20 extends Token {
      * @returns
      * @memberof ERC20
      */
-    claimCustomERC20(transactionHash: string, sourceNetworkId: number, isRefuel?: boolean, option?: ITransactionOption) {
+    claimCustomERC20(transactionHash: string, sourceNetworkId: number, option?: ITransactionOption) {
         return this.bridgeUtil.buildPayloadForClaim(
-            transactionHash, sourceNetworkId, isRefuel || false
+            transactionHash, sourceNetworkId, option.isRefuel || false
         ).then(payload => {
             if (payload.smtProofRollup) {
                 return this.bridge.claimMessageNew(
@@ -403,9 +403,9 @@ export class ERC20 extends Token {
      * @returns
      * @memberof ERC20
      */
-    claimAsset(transactionHash: string, sourceNetworkId: number, isRefuel?: boolean, option?: ITransactionOption) {
+    claimAsset(transactionHash: string, sourceNetworkId: number, option?: ITransactionOption) {
         return this.bridgeUtil.buildPayloadForClaim(
-            transactionHash, sourceNetworkId, isRefuel || false
+            transactionHash, sourceNetworkId, option.isRefuel || false
         ).then(payload => {
             if (payload.smtProofRollup) {
                 return this.bridge.claimAssetNew(
