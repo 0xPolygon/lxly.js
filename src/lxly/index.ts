@@ -1,4 +1,5 @@
 import { ERC20 } from "./erc20";
+import { Contract } from "./contract";
 import { Bridge } from "./bridge";
 import { BridgeUtil } from "./bridge_util";
 import { BridgeClient, setProofApi } from "../utils";
@@ -6,6 +7,7 @@ import { IBaseClientConfig, IContracts, IWrappers } from "../interfaces";
 import { config as urlConfig } from "../config";
 import { service } from "../services";
 import { Wrapper } from "./wrapper";
+import { AbiItem } from "../types";
 
 export * from "./bridge";
 export * from "./bridge_util";
@@ -19,7 +21,7 @@ export class LxLyClient extends BridgeClient {
         const client = this.client;
         return client.init(config).then(_ => {
             for (const [key, value] of Object.entries(config.providers)) {
-                if (value.configuration.bridgeAddress){
+                if (value.configuration.bridgeAddress) {
                     this.bridges[key] = new Bridge(
                         this.client,
                         value.configuration.bridgeAddress,
@@ -27,7 +29,7 @@ export class LxLyClient extends BridgeClient {
                     );
                 }
 
-                if (value.configuration.wrapperAddress){
+                if (value.configuration.wrapperAddress) {
                     this.wrappers[key] = new Wrapper(
                         this.client,
                         value.configuration.wrapperAddress,
@@ -65,6 +67,25 @@ export class LxLyClient extends BridgeClient {
             bridgeAdapterAddress,
             this.client,
             this.getContracts_.bind(this)
+        );
+    }
+
+    /**
+     * creates instance of ERC20 token
+     *
+     * @param {AbiItem[]} abi
+     * @param {string} tokenAddress
+     * @param {number} networkId
+     *
+     * @returns
+     * @memberof Contract
+     */
+    contract(abi: AbiItem[], tokenAddress: string, networkId: number) {
+        return new Contract(
+            abi,
+            tokenAddress,
+            networkId,
+            this.client,
         );
     }
 

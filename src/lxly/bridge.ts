@@ -31,7 +31,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {ITransactionOption} [option] 
      * 
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     bridgeAsset(
         destinationNetwork: number,
@@ -70,7 +70,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {ITransactionOption} [option]
      * 
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     claimAsset(
         smtProof: string[],
@@ -121,7 +121,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {ITransactionOption} [option]
      * 
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     claimAssetNew(
         smtProof: string[],
@@ -167,7 +167,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {ITransactionOption} [option]
      *
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     bridgeMessage(
         destinationNetwork: number,
@@ -205,7 +205,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {ITransactionOption} [option]
      *
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     claimMessage(
         smtProof: string[],
@@ -257,7 +257,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {ITransactionOption} [option]
      *
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     claimMessageNew(
         smtProof: string[],
@@ -299,7 +299,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {number} originNetwork Network at which the token was initially deployed
      * @param {string} originTokenAddress Address at the network where token was initially deployed
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     getMappedTokenInfo(
         originNetwork: number,
@@ -317,7 +317,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      *
      * @param {number} index
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     isClaimed(
         index: number,
@@ -336,7 +336,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {number} originNetwork Network at which the token was initially deployed
      * @param {string} originTokenAddress Address at the network where token was initially deployed
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     precalculatedMappedTokenInfo(
         originNetwork: number,
@@ -354,7 +354,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      *
      * @param {number} wrappedToken
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     getOriginTokenInfo(wrappedToken: string) {
         return this.method(
@@ -368,7 +368,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * get the network ID for chain in which the bridge contract is deployed
      *
      * @returns
-     * @memberof ZkEvmBridge
+     * @memberof Bridge
      */
     networkID() {
         if (this.networkID_) {

@@ -35,12 +35,18 @@ export class BaseToken<T_CLIENT_CONFIG> {
             return promiseResolve<BaseContract>(this.contract_ as any);
         }
         const contractParam = this.contractParam;
-        const abi = this.client.abiManager.getABI(contractParam.name);
+        const abi = contractParam.abi || this.client.abiManager.getABI(contractParam.name);
+        if (!abi) {
+            return Promise.reject(new Error(`Abi not found`));
+        }
         this.contract_ = this.getContract_({
             abi,
             networkId: contractParam.networkId,
             tokenAddress: contractParam.address
         });
+        if (!this.contract_) {
+            return Promise.reject(new Error(`Cannot find provider for network ${contractParam.networkId}`));
+        }
         return Promise.resolve(this.contract_);
     }
 
@@ -179,7 +185,7 @@ export class BaseToken<T_CLIENT_CONFIG> {
             return this.getChainId().then(clientChainId => {
                 const { maxFeePerGas, maxPriorityFeePerGas } = txConfig;
 
-                const isEIP1559Supported = this.client.getConfiguration(networkId).isEIP1559Seupported || false;
+                const isEIP1559Supported = this.client.getConfiguration(networkId).isEIP1559Supported || false;
                 const isMaxFeeProvided = (maxFeePerGas || maxPriorityFeePerGas);
                 txConfig.chainId = txConfig.chainId || clientChainId;
 

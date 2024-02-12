@@ -66,7 +66,7 @@ export class BridgeUtil {
         return Promise.resolve(result);
     }
 
-    private getBridgeLogData_(transactionHash: string, networkId: number) {
+    private getBridgeLogData_(transactionHash: string, networkId: number, isRefuel: boolean) {
         const client = this.client_.providers[networkId].provider;
         return client.getTransactionReceipt(transactionHash)
             .then(receipt => {
@@ -75,7 +75,7 @@ export class BridgeUtil {
                     throw new Error("Log not found in receipt");
                 }
 
-                const data = logs[0].data;
+                const data = logs[isRefuel ? 1 : 0].data;
                 return this.decodedBridgeData_(data, networkId);
             });
     }
@@ -91,12 +91,12 @@ export class BridgeUtil {
         });
     }
 
-    getBridgeLogData(transactionHash: string, networkId: number) {
-        return this.getBridgeLogData_(transactionHash, networkId);
+    getBridgeLogData(transactionHash: string, networkId: number, isRefuel = false) {
+        return this.getBridgeLogData_(transactionHash, networkId, isRefuel);
     }
 
-    buildPayloadForClaim(transactionHash: string, networkId: number) {
-        return this.getBridgeLogData_(transactionHash, networkId).then(data => {
+    buildPayloadForClaim(transactionHash: string, networkId: number, isRefuel = false) {
+        return this.getBridgeLogData_(transactionHash, networkId, isRefuel).then(data => {
             const {
                 originNetwork,
                 originTokenAddress,

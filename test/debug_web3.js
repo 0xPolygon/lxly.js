@@ -21,7 +21,7 @@ const execute = async () => {
         configuration: {
           bridgeAddress: configuration[0].bridgeAddress,
           wrapperAddress: configuration[0].wrapperAddress,
-          isEIP1559Seupported: false
+          isEIP1559Supported: false
         },
         defaultConfig: {
           from
@@ -31,7 +31,7 @@ const execute = async () => {
         provider: new HDWalletProvider(user1.privateKey, configuration[1].rpc),
         configuration: {
           bridgeAddress: configuration[1].bridgeAddress,
-          isEIP1559Seupported: false
+          isEIP1559Supported: false
         },
         defaultConfig: {
           from
@@ -74,9 +74,9 @@ const execute = async () => {
   // var tx = await N0ERC20Token.bridgeAsset("10000000000000000000", from, 1, {returnTransaction: false});
   // return console.log("hash", await tx.getTransactionHash());
 
-  // isBridgeClaimable
-  var result = await client.isBridgeClaimable('0x15f028fc6b2e9aff6ada9fc557c9666b99c238ae9b24739770cab3ec532292e2', 1);
-  return console.log('result', result);
+  // // isBridgeClaimable
+  // var result = await client.isBridgeClaimable('0x15f028fc6b2e9aff6ada9fc557c9666b99c238ae9b24739770cab3ec532292e2', 1);
+  // return console.log('result', result);
 
   // // isBridgeClaimed
   // var result = await client.isBridged('0xdb4147ed0db73a52099b4136e39b9df4de92d74b5ecb864f367446baddbacdae', 0, 1);
@@ -113,6 +113,26 @@ const execute = async () => {
   // // bridge with Permit
   // var tx = await N0ERC20Token.bridgeAssetWithPermit("10", from, 1, {returnTransaction: true});
   // return console.log("hash", tx);
+
+  // // CUSTOM CONTRACT
+  // let abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"addValue","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"number","type":"uint256"}],"name":"addValue","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimableAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"drain","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"randomValue","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"number","type":"uint256"}],"name":"randomValueByNumber","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"stateMutability":"payable","type":"receive"}]
+
+  // const customContract = client.contract(abi, "0xbe264257Be052BF867524D2640F6d5305d4263C8", 0);
+
+  // console.log('claimableAmount', await customContract.read('claimableAmount'))
+
+  // console.log('owner', await customContract.read('owner'))
+
+  // console.log('random value', await customContract.read('randomValue'))
+
+  // console.log('random value by number', await customContract.read('randomValueByNumber', 4))
+
+  // const tx = await customContract.write({returnTransaction: false}, 'addValue');
+  // console.log('addValue', await tx.getTransactionHash());
+
+  // const tx = await customContract.write({returnTransaction: false}, 'addValue', 3);
+  // // console.log('addValue', tx);
+  // console.log('addValue', await tx.getTransactionHash());
 }
 
 execute().then(_ => {
