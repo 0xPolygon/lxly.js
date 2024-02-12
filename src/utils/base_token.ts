@@ -179,7 +179,7 @@ export class BaseToken<T_CLIENT_CONFIG> {
             return this.getChainId().then(clientChainId => {
                 const { maxFeePerGas, maxPriorityFeePerGas } = txConfig;
 
-                const isEIP1559Supported = this.client.getConfiguration(networkId).isEIP1559Seupported || false;
+                const isEIP1559Supported = this.client.getConfiguration(networkId).isEIP1559Supported || false;
                 const isMaxFeeProvided = (maxFeePerGas || maxPriorityFeePerGas);
                 txConfig.chainId = txConfig.chainId || clientChainId;
 

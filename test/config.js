@@ -10,12 +10,12 @@ module.exports = {
             rpc: process.env.NETWORK_0_RPC || 'https://eth-sepolia.g.alchemy.com/v2/demo',
             bridgeAddress: process.env.NETWORK_0_BRIDGE || '0x528e26b25a34a4A5d0dbDa1d57D318153d2ED582',
             wrapperAddress: '0x0f04f8434bac2e1db8fca8a34d3e177b6c7ccaba',
-            isEIP1559Seupported: true
+            isEIP1559Supported: true
         },
         1: {
             rpc: process.env.NETWORK_1_RPC || 'https://rpc.cardona.zkevm-rpc.com',
             bridgeAddress: process.env.NETWORK_1_BRIDGE || '0x528e26b25a34a4A5d0dbDa1d57D318153d2ED582',
-            isEIP1559Seupported: true
+            isEIP1559Supported: true
         },
     },
     tokens: {

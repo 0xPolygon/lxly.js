@@ -24,7 +24,7 @@ describe('ERC20', () => {
                         configuration: {
                             bridgeAddress: configuration[0].bridgeAddress,
                             wrapperAddress: configuration[0].wrapperAddress,
-                            isEIP1559Seupported: false
+                            isEIP1559Supported: false
                         },
                         defaultConfig: {
                             from: user1.publicKey
@@ -34,7 +34,7 @@ describe('ERC20', () => {
                         provider: new Wallet(user1.privateKey, new providers.JsonRpcProvider(configuration[1].rpc)),
                         configuration: {
                             bridgeAddress: configuration[1].bridgeAddress,
-                            isEIP1559Seupported: false
+                            isEIP1559Supported: false
                         },
                         defaultConfig: {
                             from: user1.publicKey
@@ -51,7 +51,7 @@ describe('ERC20', () => {
                         configuration: {
                             bridgeAddress: configuration[0].bridgeAddress,
                             wrapperAddress: configuration[0].wrapperAddress,
-                            isEIP1559Seupported: false
+                            isEIP1559Supported: false
                         },
                         defaultConfig: {
                             from: user2.publicKey
@@ -61,7 +61,7 @@ describe('ERC20', () => {
                         provider: new Wallet(user2.privateKey, new providers.JsonRpcProvider(configuration[1].rpc)),
                         configuration: {
                             bridgeAddress: configuration[1].bridgeAddress,
-                            isEIP1559Seupported: false
+                            isEIP1559Supported: false
                         },
                         defaultConfig: {
                             from: user2.publicKey
