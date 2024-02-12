@@ -43,7 +43,7 @@ use(Web3ClientPlugin);
 const client = new LxLyClient();
 await client.init({
   log: true,
-  network: "mainnet", // "testnet" fro testnet chains
+  network: "mainnet", // "testnet" from testnet chains
   providers: {
     0: {
       provider: // Provider for network 0 chain ,
@@ -85,7 +85,7 @@ const { LxLyClient, use, setProofApi } = require("@maticnetwork/lxlyjs");
 const client = new LxLyClient();
 await client.init({
   log: true,
-  network: "mainnet", // "testnet" fro testnet chains
+  network: "mainnet", // "testnet" from testnet chains
   providers: {
     <CustomNetworkId>: {
       provider: // Provider for custom network Chain ,
