@@ -9,6 +9,113 @@ This repository contains the `lxlyjs` client library. `lxlyjs` makes it easy for
 
 This library will help developers to move assets between Ethereum chain and Polygon CDK chains.
 
+## Installation
+
+You can install the package using [NPM](https://www.npmjs.com/package/@maticnetwork/lxlyjs)
+
+### Using NPM
+
+```bash
+npm install @maticnetwork/lxlyjs
+```
+
+## Usage
+
+### Import lxly.js module
+
+```typescript
+// Use web3 client
+const { LxLyClient, use } = require("@maticnetwork/lxlyjs");
+const { Web3ClientPlugin } = require("@maticnetwork/maticjs-web3");
+use(Web3ClientPlugin);
+```
+
+```typescript
+// Use ethers client
+const { LxLyClient, use } = require("@maticnetwork/lxlyjs");
+const { Web3ClientPlugin } = require("@maticnetwork/maticjs-ethers");
+use(Web3ClientPlugin);
+```
+
+### Client Initialization
+
+```typescript
+const client = new LxLyClient();
+await client.init({
+  log: true,
+  network: "mainnet", // "testnet" fro testnet chains
+  providers: {
+    0: {
+      provider: // Provider for network 0 chain ,
+      configuration: {
+        bridgeAddress: // Bridge Address on 0 network,
+        wrapperAddress: // Wrapper Address on 0 network,
+        isEIP1559Supported: true
+      },
+      defaultConfig: {
+        from
+      }
+    },
+    1: {
+      provider: // Provider for network 1 chain ,
+      configuration: {
+        bridgeAddress: // Bridge Address on 1 network,
+        wrapperAddress: // Wrapper Address on 0 network,
+        isEIP1559Supported: false
+      },
+      defaultConfig: {
+        from
+      }
+    }
+  }
+});
+```
+
+Configuration details can be found here for [Mainnet](./configuration//MAINNET.json) and [Testnet](./configuration//TESTNET.json)
+
+### Custom Network
+
+Custom networks can also be integrated into the client.
+
+It's worth noting that the lxly.js library might not inherently support the merkle-proof API for custom networks. To address this, users can provide a custom Proof API by utilizing the ```setProofApi``` function call. This allows for seamless integration and support of merkle-proof functionalities within the custom network setup. Further details on the format for Proof Generation API can be found [here](https://github.com/maticnetwork/proof-generation-api).
+
+```typescript
+const { LxLyClient, use, setProofApi } = require("@maticnetwork/lxlyjs");
+
+const client = new LxLyClient();
+await client.init({
+  log: true,
+  network: "mainnet", // "testnet" fro testnet chains
+  providers: {
+    <CustomNetworkId>: {
+      provider: // Provider for custom network Chain ,
+      configuration: {
+        bridgeAddress: // Bridge Address on custom network,
+        wrapperAddress: // Wrapper Address on custom network,
+        isEIP1559Supported: // is EIP1559 Supported on custom network
+      },
+      defaultConfig: {
+        from
+      }
+    }
+  }
+});
+
+setProofApi(url)
+```
+
+### ERC20 Token initialization
+```typescript
+// Initialize ERC20 token with the token address and network ID
+const erc20 = new client.erc20(tokenAddress, networkId);
+
+// Example usage: get the balance of a specific address
+const balance = erc20.getBalance(address);
+```
+
+For the complete function implementation, please refer to the example [here](./test/debug_web3.js) or codebase available [here](./src/lxly/index.ts).
+
+
 ## Support
 
 Our [Discord](https://discord.gg/0xPolygonDevs) is the best way to reach us ✨.
@@ -35,13 +142,13 @@ npm ci
 
 **How to debug**
 
-Write your code inside file `test/debug.js` and run below code
+Write your code inside file `test/debug_web3.js` and run below code
 
 ```bash
 npm run debug
 ```
 
-Above command will build the source code & install the built version into test folder, which will be used by `debug.js`.
+Above command will build the source code & install the built version into test folder, which will be used by `debug_web3.js`.
 
 **Lint**
 
@@ -58,12 +165,6 @@ npm run lint:fix
 
 ```bash
 npm run build
-```
-
-**Run test**
-
-```bash
-npm run test
 ```
 
 **Generate distribution files**

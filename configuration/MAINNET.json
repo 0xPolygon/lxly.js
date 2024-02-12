@@ -1,0 +1,15 @@
+{
+    "0": {
+        "NetworkName": "Ethereum",
+        "isEIP1559Supported": true,
+        "chainId": 1,
+        "bridgeAddress": "0x2a3DD3EB832aF982ec71669E178424b10Dca2EDe",
+        "wrapperAddress": "0x047E0b64743071b897A6177F1796E98b4C3f344E"
+    },
+    "1": {
+        "NetworkName": "Cherry",
+        "isEIP1559Supported": false,
+        "chainId": 1101,
+        "bridgeAddress": "0x2a3DD3EB832aF982ec71669E178424b10Dca2EDe"
+    }
+}
