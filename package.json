@@ -53,14 +53,12 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "@types/node-fetch": "^2.5.12",
-    "@typescript-eslint/eslint-plugin": "^2.16.0",
-    "@typescript-eslint/parser": "^2.16.0",
+    "@types/node-fetch": "^2.6.11",
+    "@typescript-eslint/parser": "^7.0.1",
     "copy-webpack-plugin": "^6.1.1",
     "cross-env": "^7.0.3",
-    "husky": "2.4.1",
+    "husky": "^9.0.11",
     "lint-staged": "8.2.1",
-    "rimraf": "^3.0.2",
     "smart-banner-webpack-plugin": "^3.0.1",
     "ts-loader": "^8.0.0",
     "tslint": "^6.1.3",

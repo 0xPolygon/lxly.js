@@ -1,9 +1,9 @@
 import { Web3SideChainClient } from "../utils";
 import { service } from "../services";
-import { IBaseClientConfig } from "..";
+import { IBaseClientConfig, _GLOBAL_INDEX_MAINNET_FLAG } from "..";
 import { TYPE_AMOUNT } from '../types';
 
-interface IBridgeEventInfo {
+export interface IBridgeEventInfo {
     originNetwork: number;
     originTokenAddress: string;
     destinationNetwork: number;
@@ -13,7 +13,7 @@ interface IBridgeEventInfo {
     depositCount: number;
 }
 
-interface IMerkleProof {
+export interface IMerkleProof {
     merkle_proof: string[];
     rollup_merkle_proof?: string[];
     exit_root_num: string;
@@ -22,10 +22,10 @@ interface IMerkleProof {
     rollup_exit_root: string;
 }
 
-interface IClaimPayload {
+export interface IClaimPayload {
     smtProof: string[];
     smtProofRollup?: string[];
-    index: number;
+    globalIndex: string;
     mainnetExitRoot: string;
     rollupExitRoot: string;
     originNetwork: number;
@@ -95,8 +95,16 @@ export class BridgeUtil {
         return this.getBridgeLogData_(transactionHash, networkId, isRefuel);
     }
 
+    computeGlobalIndex(indexLocal: number, indexRollup: number, sourceNetworkId: number) {
+        if (sourceNetworkId === 0) {
+            return BigInt(indexLocal) + _GLOBAL_INDEX_MAINNET_FLAG;
+        } else {
+            return BigInt(indexLocal) + BigInt(indexRollup) * BigInt(2 ** 32);
+        }
+    }
+
     buildPayloadForClaim(transactionHash: string, networkId: number, isRefuel = false) {
-        return this.getBridgeLogData_(transactionHash, networkId, isRefuel).then(data => {
+        return this.getBridgeLogData_(transactionHash, networkId, isRefuel).then((data: IBridgeEventInfo) => {
             const {
                 originNetwork,
                 originTokenAddress,
@@ -105,11 +113,11 @@ export class BridgeUtil {
                 amount,
                 metadata,
                 depositCount } = data;
-            return this.getProof_(networkId, depositCount).then(proof => {
+            return this.getProof_(networkId, depositCount).then((proof: IMerkleProof) => {
                 const payload = {} as IClaimPayload;
                 payload.smtProof = proof.merkle_proof;
                 payload.smtProofRollup = proof.rollup_merkle_proof;
-                payload.index = depositCount;
+                payload.globalIndex = this.computeGlobalIndex(depositCount, destinationNetwork, networkId).toString();
                 payload.mainnetExitRoot = proof.main_exit_root;
                 payload.rollupExitRoot = proof.rollup_exit_root;
                 payload.originNetwork = originNetwork;
