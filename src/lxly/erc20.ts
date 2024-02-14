@@ -14,6 +14,7 @@ import {
     Permit,
     BaseContract,
     BaseWeb3Client,
+    IClaimPayload,
 } from '..';
 import {
     IAllowanceTransactionOption,
@@ -359,37 +360,21 @@ export class ERC20 extends Token {
     claimCustomERC20(transactionHash: string, sourceNetworkId: number, option?: ITransactionOption) {
         return this.bridgeUtil.buildPayloadForClaim(
             transactionHash, sourceNetworkId, option.isRefuel || false
-        ).then(payload => {
-            if (payload.smtProofRollup) {
-                return this.bridge.claimMessageNew(
-                    payload.smtProof,
-                    payload.smtProofRollup,
-                    payload.index,
-                    payload.mainnetExitRoot,
-                    payload.rollupExitRoot,
-                    payload.originNetwork,
-                    payload.originTokenAddress,
-                    payload.destinationNetwork,
-                    payload.destinationAddress,
-                    payload.amount,
-                    payload.metadata,
-                    option
-                );
-            } else {
-                return this.bridge.claimMessage(
-                    payload.smtProof,
-                    payload.index,
-                    payload.mainnetExitRoot,
-                    payload.rollupExitRoot,
-                    payload.originNetwork,
-                    payload.originTokenAddress,
-                    payload.destinationNetwork,
-                    payload.destinationAddress,
-                    payload.amount,
-                    payload.metadata,
-                    option
-                );
-            }
+        ).then((payload: IClaimPayload) => {
+            return this.bridge.claimMessage(
+                payload.smtProof,
+                payload.smtProofRollup,
+                payload.globalIndex,
+                payload.mainnetExitRoot,
+                payload.rollupExitRoot,
+                payload.originNetwork,
+                payload.originTokenAddress,
+                payload.destinationNetwork,
+                payload.destinationAddress,
+                payload.amount,
+                payload.metadata,
+                option
+            );
         });
     }
 
@@ -406,45 +391,37 @@ export class ERC20 extends Token {
     claimAsset(transactionHash: string, sourceNetworkId: number, option?: ITransactionOption) {
         return this.bridgeUtil.buildPayloadForClaim(
             transactionHash, sourceNetworkId, option.isRefuel || false
-        ).then(payload => {
-            if (payload.smtProofRollup) {
-                return this.bridge.claimAssetNew(
-                    payload.smtProof,
-                    payload.smtProofRollup,
-                    payload.index,
-                    payload.mainnetExitRoot,
-                    payload.rollupExitRoot,
-                    payload.originNetwork,
-                    payload.originTokenAddress,
-                    payload.destinationNetwork,
-                    payload.destinationAddress,
-                    payload.amount,
-                    payload.metadata,
-                    option
-                );
-            } else {
-                return this.bridge.claimAsset(
-                    payload.smtProof,
-                    payload.index,
-                    payload.mainnetExitRoot,
-                    payload.rollupExitRoot,
-                    payload.originNetwork,
-                    payload.originTokenAddress,
-                    payload.destinationNetwork,
-                    payload.destinationAddress,
-                    payload.amount,
-                    payload.metadata,
-                    option
-                );
-            }
+        ).then((payload: IClaimPayload) => {
+            return this.bridge.claimAsset(
+                payload.smtProof,
+                payload.smtProofRollup,
+                payload.globalIndex,
+                payload.mainnetExitRoot,
+                payload.rollupExitRoot,
+                payload.originNetwork,
+                payload.originTokenAddress,
+                payload.destinationNetwork,
+                payload.destinationAddress,
+                payload.amount,
+                payload.metadata,
+                option
+            );
         });
     }
 
     /**
      * Claim Assets after GlobalExitRootManager is synced from source to destination
      *
-     * @param {string} transactionHash
-     * @param {number} sourceNetworkId
+     * @param {string[]} smtProof Merkle Proof
+     * @param {string[]} smtProofRollup Roll up Merkle Proof
+     * @param {string} globalIndex Global Index
+     * @param {string} mainnetExitRoot Mainnet Exit Root
+     * @param {string} rollupExitRoot RollUP Exit Root
+     * @param {number} originNetwork Network at which token was initially deployed
+     * @param {string} originTokenAddress Address of token at network where token was initially deployed
+     * @param {string} destinationAddress Address to which tokens will be bridged
+     * @param {TYPE_AMOUNT} amount amount of tokens
+     * @param {string} metadata Metadata of token
      * @param {ITransactionOption} [option]
      * @returns
      * @memberof ERC20
@@ -452,7 +429,7 @@ export class ERC20 extends Token {
     claimAssetRaw(
         smtProof: string[],
         smtProofRollup: string[],
-        index: number,
+        globalIndex: string,
         mainnetExitRoot: string,
         rollupExitRoot: string,
         originNetwork: number,
@@ -463,10 +440,10 @@ export class ERC20 extends Token {
         metadata: string,
         option?: ITransactionOption
     ) {
-        return this.bridge.claimAssetNew(
+        return this.bridge.claimAsset(
             smtProof,
             smtProofRollup,
-            index,
+            globalIndex,
             mainnetExitRoot,
             rollupExitRoot,
             originNetwork,
