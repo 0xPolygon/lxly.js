@@ -89,6 +89,6 @@
       "allow-leading-underscore",
       "allow-trailing-underscore"
     ],
-    "no-shadowed-variable": true
+    "no-shadowed-variable": false
   }
 }
