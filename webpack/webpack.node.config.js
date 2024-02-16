@@ -7,12 +7,8 @@ exports.default = webpackMerge(webpackBaseConfig, {
     externals: {
         'ethereumjs-util': 'ethereumjs-util',
         'bn.js': 'bn.js',
-        'eth-sig-util': 'eth-sig-util',
-        '@ethereumjs/block': '@ethereumjs/block',
         '@ethereumjs/common': '@ethereumjs/common',
-        'ethereumjs-tx': 'ethereumjs-tx',
         'ethereumjs-util': 'ethereumjs-util',
-        'merkle-patricia-tree': 'merkle-patricia-tree',
         'node-fetch': 'node-fetch',
     },
     output: {

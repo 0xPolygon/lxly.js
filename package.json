@@ -1,6 +1,6 @@
 {
   "name": "@maticnetwork/lxlyjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Javascript developer library for interacting with Polygon LxLy Bridge",
   "main": "dist/npm.export.js",
   "types": "dist/ts/index.d.ts",
@@ -47,9 +47,7 @@
   },
   "homepage": "https://github.com/0xpolygon/lxly.js#readme",
   "dependencies": {
-    "@ethereumjs/block": "^3.6.2",
     "ethereumjs-util": "^7.1.4",
-    "merkle-patricia-tree": "^4.2.4",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
