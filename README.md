@@ -1,8 +1,8 @@
 # LxLy SDK
 
 [![GitHub version](https://badge.fury.io/gh/0xpolygon%2Flxly.js.svg)](https://badge.fury.io/gh/0xpolygon%2Flxly.js)
-![Build Status](https://github.com/0xpolygon/lxly.js/workflows/CI/badge.svg?branch=master)
-[![npm version](https://badge.fury.io/js/%400xpolygon%2Flxlyjs.svg)](https://badge.fury.io/js/%400xpolygon%2Flxlyjs)
+![Build Status](https://github.com/0xpolygon/lxly.js/workflows/CI/badge.svg?branch=main)
+[![npm version](https://badge.fury.io/js/%400xpolygon%2Flxlyjs.svg)](https://badge.fury.io/js/%40maticnetwork%2Flxlyjs)
 ![GitHub](https://img.shields.io/github/license/0xpolygon/lxly.js)
 
 This repository contains the `lxlyjs` client library. `lxlyjs` makes it easy for developers, who may not be deeply familiar with smart contract development, to interact with the various components of Polygon LxLy Aggregator bridge.
