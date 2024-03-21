@@ -8,14 +8,9 @@
     "link:lib": "npm link @maticnetwork/lxlyjs",
     "debug:web3": "dotenv node debug_web3.js",
     "debug:ethers": "dotenv node debug_ethers.js",
-    "install:lib": "node install_lib.js",
-    "install:lib:test": "npm run install:lib && npm run test",
-    "install:lib:debug": "npm run install:lib && npm run debug:web3",
-    "un:lib": "npm un @maticnetwork/lxlyjs",
-    "karma:start": "dotenv karma start karma.conf.js",
-    "test": "cross-env NODE_ENV=test npm run karma:start",
-    "test:all": "cross-env NODE_ENV=test_all npm run karma:start",
-    "test:mocha": "cross-env-file -p ./config.json cross-env NODE_ENV=test mochapack --webpack-config ./webpack.config.test.js --colors ./specs/index.ts"
+    "link:lib:test": "npm run link:lib && npm run test",
+    "link:lib:debug": "npm run link:lib && npm run debug:web3",
+    "un:lib": "npm un @maticnetwork/lxlyjs"
   },
   "author": "",
   "license": "ISC",
@@ -33,11 +28,9 @@
     "karma-firefox-launcher": "^1.3.0",
     "karma-mocha": "^2.0.1",
     "karma-mocha-reporter": "^2.2.5",
-    "karma-webpack": "^4.0.2",
     "mocha": "^10.3.0",
-    "puppeteer": "^11.0.0",
-    "ts-jest": "^27.0.7",
-    "webpack-cli": "^4.2.0"
+    "puppeteer": "^22.6.0",
+    "ts-jest": "^27.0.7"
   },
   "dependencies": {
     "@maticnetwork/lxlyjs": "file:../maticnetwork-lxlyjs-0.0.3.tgz",
