@@ -12,7 +12,7 @@
   "dependencies": {
     "@maticnetwork/lxlyjs": "^0.0.1",
     "@maticnetwork/maticjs-web3": "^1.0.4",
-    "@truffle/hdwallet-provider": "^1.7.0",
+    "@truffle/hdwallet-provider": "^2.1.15",
     "dotenv": "^10.0.0"
   }
 }
