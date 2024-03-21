@@ -17,7 +17,7 @@ const execute = async () => {
     network: network,
     providers: {
       0: {
-        provider: new HDWalletProvider(user1.privateKey, configuration[0].rpc),
+        provider: new HDWalletProvider([user1.privateKey], configuration[0].rpc),
         configuration: {
           bridgeAddress: configuration[0].bridgeAddress,
           wrapperAddress: configuration[0].wrapperAddress,
@@ -28,7 +28,7 @@ const execute = async () => {
         }
       },
       1: {
-        provider: new HDWalletProvider(user1.privateKey, configuration[1].rpc),
+        provider: new HDWalletProvider([user1.privateKey], configuration[1].rpc),
         configuration: {
           bridgeAddress: configuration[1].bridgeAddress,
           isEIP1559Supported: false
