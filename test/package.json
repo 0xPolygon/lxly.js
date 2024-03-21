@@ -20,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/mocha": "^9.0.0",
+    "@types/mocha": "^10.0.6",
     "chai": "^3.5.0",
     "cross-env": "^7.0.3",
     "cross-env-file": "^1.0.0",
@@ -34,7 +34,7 @@
     "karma-mocha": "^2.0.1",
     "karma-mocha-reporter": "^2.2.5",
     "karma-webpack": "^4.0.2",
-    "mocha": "^8.2.1",
+    "mocha": "^10.3.0",
     "puppeteer": "^11.0.0",
     "ts-jest": "^27.0.7",
     "webpack-cli": "^4.2.0"
