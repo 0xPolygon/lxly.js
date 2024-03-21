@@ -15,7 +15,7 @@ const getLxLyClient = async (network = 'testnet') => {
     network: network,
     providers: {
       0: {
-        provider: new HDWalletProvider(config.user1.privateKey, config.configuration[0].rpc),
+        provider: new HDWalletProvider([config.user1.privateKey], config.configuration[0].rpc),
         configuration: {
           bridgeAddress: config.configuration[0].bridgeAddress,
           wrapperAddress: config.configuration[0].wrapperAddress,
@@ -26,7 +26,7 @@ const getLxLyClient = async (network = 'testnet') => {
         }
       },
       1: {
-        provider: new HDWalletProvider(config.user1.privateKey, config.configuration[1].rpc),
+        provider: new HDWalletProvider([config.user1.privateKey], config.configuration[1].rpc),
         configuration: {
           bridgeAddress: config.configuration[1].bridgeAddress,
           isEIP1559Supported: false
