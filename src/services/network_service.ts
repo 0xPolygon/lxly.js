@@ -12,7 +12,7 @@ export class NetworkService {
     }
 
     getMerkleProof(networkID: number, depositCount: number) {
-        const url = this.createUrl(`merkle-proof?net_id=${networkID}&deposit_cnt=${depositCount}`);
+        const url = this.createUrl(`merkle-proof?networkId=${networkID}&depositCount=${depositCount}`);
         return this.httpRequest.get<any>(url).then(result => {
             return result.proof;
         });
