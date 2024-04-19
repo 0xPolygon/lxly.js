@@ -19,9 +19,9 @@ export class Wrapper extends BaseToken<IBaseClientConfig> {
 
     depositWithGas(
         tokenAddress: string,
-        depositAmount: string,
-        userAddress: string,
         destinationNetwork: number,
+        userAddress: string,
+        depositAmount: string,
         option?: ITransactionOption
     ) {
         return this.method(
