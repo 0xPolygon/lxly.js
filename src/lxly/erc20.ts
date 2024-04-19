@@ -226,8 +226,9 @@ export class ERC20 extends Token {
         if (option.v && option.r && option.s) {
             return this.wrapper.depositPermitWithGas(
                 this.contractParam.address,
-                amountInABI,
+                destinationNetworkId,
                 userAddress,
+                amountInABI,
                 Math.floor((Date.now() + 3600000) / 1000).toString(),
                 option.v,
                 option.r,
@@ -237,8 +238,9 @@ export class ERC20 extends Token {
         }
         return this.wrapper.depositWithGas(
             this.contractParam.address,
-            amountInABI,
+            destinationNetworkId,
             userAddress,
+            amountInABI,
             option
         );
     }
@@ -275,8 +277,9 @@ export class ERC20 extends Token {
             signatureParams => {
                 return this.wrapper.depositPermitWithGas(
                     this.contractParam.address,
-                    amountInABI,
+                    destinationNetworkId,
                     userAddress,
+                    amountInABI,
                     Math.floor((Date.now() + 3600000) / 1000).toString(),
                     signatureParams.v,
                     signatureParams.r,
