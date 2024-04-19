@@ -95,11 +95,11 @@ export class BridgeUtil {
         return this.getBridgeLogData_(transactionHash, networkId, isRefuel);
     }
 
-    computeGlobalIndex(indexLocal: number, indexRollup: number, sourceNetworkId: number) {
+    computeGlobalIndex(indexLocal: number, sourceNetworkId: number) {
         if (BigInt(sourceNetworkId) === BigInt(0)) {
             return BigInt(indexLocal) + _GLOBAL_INDEX_MAINNET_FLAG;
         } else {
-            return BigInt(indexLocal) + BigInt(indexRollup) * BigInt(2 ** 32);
+            return BigInt(indexLocal) + BigInt(sourceNetworkId - 1) * BigInt(2 ** 32);
         }
     }
 
@@ -117,7 +117,7 @@ export class BridgeUtil {
                 const payload = {} as IClaimPayload;
                 payload.smtProof = proof.merkle_proof;
                 payload.smtProofRollup = proof.rollup_merkle_proof;
-                payload.globalIndex = this.computeGlobalIndex(depositCount, destinationNetwork, networkId).toString();
+                payload.globalIndex = this.computeGlobalIndex(depositCount, networkId).toString();
                 payload.mainnetExitRoot = proof.main_exit_root;
                 payload.rollupExitRoot = proof.rollup_exit_root;
                 payload.originNetwork = originNetwork;

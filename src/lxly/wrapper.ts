@@ -19,16 +19,17 @@ export class Wrapper extends BaseToken<IBaseClientConfig> {
 
     depositWithGas(
         tokenAddress: string,
-        depositAmount: string,
+        destinationNetwork: number,
         userAddress: string,
-        // destinationNetwork: number
+        depositAmount: string,
         option?: ITransactionOption
     ) {
         return this.method(
             "deposit",
             tokenAddress,
-            depositAmount,
+            destinationNetwork,
             userAddress,
+            depositAmount
         ).then(method => {
             return this.processWrite(method, option);
         });
@@ -36,20 +37,21 @@ export class Wrapper extends BaseToken<IBaseClientConfig> {
 
     depositPermitWithGas(
         tokenAddress: string,
-        depositAmount: string,
+        destinationNetwork: number,
         userAddress: string,
+        depositAmount: string,
         deadline: string,
         v: number,
         r: string,
         s: string,
-        // destinationNetwork: number
         option?: ITransactionOption
     ) {
         return this.method(
             "deposit",
             tokenAddress,
-            depositAmount,
+            destinationNetwork,
             userAddress,
+            depositAmount,
             deadline,
             v,
             r,
