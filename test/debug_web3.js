@@ -49,8 +49,8 @@ const execute = async () => {
   // // getBalance on network 0
   // console.log('balance of N0ERC20Token is', await N0ERC20Token.getBalance(from));
 
-  // // getEtherBalance on network 0
-  // console.log('balance of N0EtherToken is', await N0EtherToken.getBalance(from));
+  // getEtherBalance on network 0
+  console.log('balance of N0EtherToken is', await N0EtherToken.getBalance(from));
 
   // // getBalance on network 1
   // console.log('balance of N1ERC20Token is', await N1ERC20Token.getBalance(from));
