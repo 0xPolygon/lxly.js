@@ -2,7 +2,7 @@
   "name": "@maticnetwork/lxlyjs",
   "version": "2.0.0",
   "description": "Javascript developer library for interacting with Polygon LxLy Bridge",
-  "main": "dist/npm.export.js",
+  "main": "dist/lxly.node.js",
   "types": "dist/ts/index.d.ts",
   "browser": "dist/lxly.umd.js",
   "react-native": "dist/lxly.node.js",
