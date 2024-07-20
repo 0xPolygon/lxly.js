@@ -49,7 +49,7 @@ const clientConfig = {
       patterns: [{ from: path.resolve('build_helper', 'npm.export.js'), to: '' }],
     }),
     new webpack.BannerPlugin(banner)
-],
+  ],
 }
 
 const serverConfig = {
