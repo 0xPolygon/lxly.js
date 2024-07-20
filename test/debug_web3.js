@@ -1,9 +1,10 @@
+const { network, configuration, user1, user2, tokens } = require("./config");
+
 const { LxLyClient, use, Converter } = require("@maticnetwork/lxlyjs");
 const { Web3ClientPlugin } = require("@maticnetwork/maticjs-web3");
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
-const { network, configuration, user1, user2, tokens } = require("./config");
 use(Web3ClientPlugin);
 
 const execute = async () => {
