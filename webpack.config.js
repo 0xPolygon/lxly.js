@@ -45,7 +45,7 @@ const clientConfig = {
   },
   plugins: [
     new webpack.BannerPlugin(banner)
-],
+  ],
 }
 
 const serverConfig = {
