@@ -3,6 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const env = require('yargs').argv.env // use --env with webpack 2
 const banner = require('./license.js');
+const copyPlugin = require('copy-webpack-plugin')
 
 const libraryName = 'LxLy'
 
@@ -19,7 +20,7 @@ const clientConfig = {
   target: 'web',
   output: {
     path: `${__dirname}/dist`,
-    filename: `${libraryName}.umd.js`,
+    filename: `${libraryName}.umd${mode === 'production' ? '.min' : ''}.js`,
     library: libraryName,
     libraryTarget: 'umd',
     // libraryExport: 'default',
@@ -44,8 +45,11 @@ const clientConfig = {
     extensions: ['.json', '.js', '.ts', 'tsx'],
   },
   plugins: [
+    new copyPlugin({
+      patterns: [{ from: path.resolve('build_helper', 'npm.export.js'), to: '' }],
+    }),
     new webpack.BannerPlugin(banner)
-],
+  ],
 }
 
 const serverConfig = {
@@ -53,7 +57,7 @@ const serverConfig = {
   target: 'node',
   output: {
     path: `${__dirname}/dist`,
-    filename: `${libraryName}.node.js`,
+    filename: `${libraryName}.node${mode === 'production' ? '.min' : ''}.js`,
     // globalObject: 'this',
     libraryTarget: 'commonjs2',
   },
