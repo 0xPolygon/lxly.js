@@ -49,7 +49,7 @@ const clientConfig = {
       patterns: [{ from: path.resolve('build_helper', 'npm.export.js'), to: '' }],
     }),
     new webpack.BannerPlugin(banner)
-],
+  ],
 }
 
 const serverConfig = {
@@ -61,6 +61,11 @@ const serverConfig = {
     // globalObject: 'this',
     libraryTarget: 'commonjs2',
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.BUILD_ENV': JSON.stringify("node")
+    }),
+  ]
 }
 
 const standaloneConfig = {

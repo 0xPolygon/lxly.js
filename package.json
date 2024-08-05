@@ -14,7 +14,6 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "build": "tsc",
     "build:link": "webpack && npm link",
     "build:dev": "webpack",
     "build:prod": "webpack --env build",
@@ -24,8 +23,7 @@
     "lint:fix": "tslint src/**/*.ts --fix",
     "build:test": "npm run build:link && npm run test",
     "test": "cd test && npm run link:lib:test",
-    "debug": "webpack && cd test && npm run link:lib:debug",
-    "testrpc": "ganache-cli --mnemonic 'clock radar mass judge dismiss just intact mind resemble fringe diary casino' --gasLimit 13000000"
+    "debug": "webpack && cd test && npm run link:lib:debug"
   },
   "repository": {
     "type": "git",
@@ -76,7 +74,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run build"
+      "pre-commit": "npm run build:dev"
     }
   }
 }
