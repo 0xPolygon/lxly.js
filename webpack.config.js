@@ -37,8 +37,11 @@ const clientConfig = {
   },
   externals: {
     web3: 'web3',
-    'ethereumjs-util': 'ethereumjs-util',
-    'query-string': 'query-string',
+    '@ethereumjs/util': '@ethereumjs/util',
+    'assert': 'assert',
+    'buffer': 'buffer',
+    'node-fetch': 'node-fetch',
+    'stream': 'stream'
   },
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
@@ -61,6 +64,11 @@ const serverConfig = {
     // globalObject: 'this',
     libraryTarget: 'commonjs2',
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.BUILD_ENV': JSON.stringify("node")
+    }),
+  ]
 }
 
 const standaloneConfig = {

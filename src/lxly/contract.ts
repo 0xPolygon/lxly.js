@@ -1,4 +1,4 @@
-import { isHexString } from 'ethereumjs-util';
+import { isHexString } from '@ethereumjs/util';
 import { ITransactionOption } from "../interfaces";
 import { AbiItem } from "../types";
 import { BaseToken, Web3SideChainClient } from "../utils";
