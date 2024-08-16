@@ -19,8 +19,8 @@ _Commit message convention:_
 
 _Note: Keep commit message meaningful for your team members to understand while reviewing merge/pull request._
 
-6. Push changes to remote repository `git push origin <branch-name>`
+4. Push changes to remote repository `git push origin <branch-name>`
 
-7. Create a merge/pull request against `master` branch.
+5. Create a merge/pull request against `master` branch.
 
 _Note: Don't push changes to `master` branch directly. Write proper description of the changes while creating merge/pull request_
