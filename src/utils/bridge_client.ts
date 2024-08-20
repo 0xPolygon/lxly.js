@@ -14,12 +14,14 @@ export class BridgeClient {
      * check if the bridge is claimable
      *
      * @param {string} txHash
+     * @param {string} sourceNetwork
+     * @param {number} [bridgeIndex=0]
      * @returns
      * @memberof BridgeClient
      */
-    isBridgeClaimable(txHash: string, sourceNetwork: number) {
+    isBridgeClaimable(txHash: string, sourceNetwork: number, bridgeIndex: number = 0) {
         return this.bridgeUtil.getBridgeLogData(
-            txHash, sourceNetwork
+            txHash, sourceNetwork, bridgeIndex
         ).then(result => {
             return service.network.getBridgeTransactionDetails(
                 sourceNetwork,
@@ -34,14 +36,17 @@ export class BridgeClient {
      * check whether deposit is completed
      *
      * @param {string} txHash
+     * @param {string} sourceNetwork
+     * @param {string} destinationNetwork
+     * @param {string} [bridgeIndex=0]
      * @returns
      * @memberof BridgeClient
      */
-    isBridged(txHash: string, sourceNetowrk: number, destinationNetwork: number) {
+    isBridged(txHash: string, sourceNetwork: number, destinationNetwork: number, bridgeIndex: number = 0) {
         return this.bridgeUtil.getBridgeLogData(
-            txHash, sourceNetowrk
+            txHash, sourceNetwork, bridgeIndex
         ).then(result => {
-            return this.bridges[destinationNetwork].isClaimed(result.depositCount, sourceNetowrk);
+            return this.bridges[destinationNetwork].isClaimed(result.depositCount, sourceNetwork);
         });
     }
 
