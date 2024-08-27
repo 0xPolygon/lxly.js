@@ -130,7 +130,7 @@ For the complete function implementation, please refer to the example [here](./t
 
 ## Support
 
-Our [Discord](https://discord.gg/0xPolygonDevs) is the best way to reach us ✨.
+Our [Discord](https://discord.com/invite/0xpolygonrnd) is the best way to reach us ✨.
 
 ## Contributors
 
