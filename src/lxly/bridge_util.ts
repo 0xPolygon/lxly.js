@@ -66,7 +66,7 @@ export class BridgeUtil {
         return Promise.resolve(result);
     }
 
-    private getBridgeLogData_(transactionHash: string, networkId: number, bridgeIndex = 0) {
+    private getBridgeLogData_(transactionHash: string, networkId: number, bridgeIndex: number = 0) {
         const client = this.client_.providers[networkId].provider;
         return client.getTransactionReceipt(transactionHash)
             .then(receipt => {
@@ -91,7 +91,7 @@ export class BridgeUtil {
         });
     }
 
-    getBridgeLogData(transactionHash: string, networkId: number, bridgeIndex = 0) {
+    getBridgeLogData(transactionHash: string, networkId: number, bridgeIndex: number = 0) {
         return this.getBridgeLogData_(transactionHash, networkId, bridgeIndex);
     }
 
@@ -103,7 +103,7 @@ export class BridgeUtil {
         }
     }
 
-    buildPayloadForClaim(transactionHash: string, networkId: number, bridgeIndex = 0) {
+    buildPayloadForClaim(transactionHash: string, networkId: number, bridgeIndex: number = 0) {
         return this.getBridgeLogData_(transactionHash, networkId, bridgeIndex).then((data: IBridgeEventInfo) => {
             const {
                 originNetwork,

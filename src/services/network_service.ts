@@ -11,17 +11,21 @@ export class NetworkService {
         return `${url}`;
     }
 
-    getMerkleProof(networkID: number, depositCount: number) {
+    async getMerkleProof(networkID: number, depositCount: number) {
         const url = this.createUrl(`merkle-proof?networkId=${networkID}&depositCount=${depositCount}`);
-        return this.httpRequest.get<any>(url).then(result => {
-            return result.proof;
-        });
+        const result = await this.httpRequest.get<any>(url);
+        return result.proof;
     }
 
-    getBridgeTransactionDetails(networkID: number, depositCount: number) {
+    async getBridgeTransactionDetails(networkID: number, depositCount: number) {
         const url = this.createUrl(`bridge?net_id=${networkID}&deposit_cnt=${depositCount}`);
-        return this.httpRequest.get<any>(url).then(result => {
-            return result.deposit;
-        });
+        const result = await this.httpRequest.get<any>(url);
+        return result.deposit;
+    }
+
+    async getUserBridgeTransactions(userAddress: string, pageIndex: number = 0) {
+        const url = this.createUrl(`transactions?userAddress=${userAddress}&page=${pageIndex}`);
+        const result = await this.httpRequest.get<any>(url);
+        return result.result;
     }
 }
