@@ -19,7 +19,7 @@ export class BridgeClient {
      * @returns
      * @memberof BridgeClient
      */
-    isBridgeClaimable(txHash: string, sourceNetwork: number, bridgeIndex = 0) {
+    isBridgeClaimable(txHash: string, sourceNetwork: number, bridgeIndex: number = 0) {
         return this.bridgeUtil.getBridgeLogData(
             txHash, sourceNetwork, bridgeIndex
         ).then(result => {
@@ -42,7 +42,7 @@ export class BridgeClient {
      * @returns
      * @memberof BridgeClient
      */
-    isBridged(txHash: string, sourceNetwork: number, destinationNetwork: number, bridgeIndex = 0) {
+    isBridged(txHash: string, sourceNetwork: number, destinationNetwork: number, bridgeIndex: number = 0) {
         return this.bridgeUtil.getBridgeLogData(
             txHash, sourceNetwork, bridgeIndex
         ).then(result => {
