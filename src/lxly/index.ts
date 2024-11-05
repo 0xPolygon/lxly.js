@@ -3,19 +3,22 @@ import { Contract } from "./contract";
 import { Bridge } from "./bridge";
 import { BridgeUtil } from "./bridge_util";
 import { BridgeClient, setProofApi } from "../utils";
-import { IBaseClientConfig, IContracts, IWrappers } from "../interfaces";
+import { IBaseClientConfig, IContracts, IWrappers, IGasPorters } from "../interfaces";
 import { config as urlConfig } from "../config";
 import { service } from "../services";
 import { Wrapper } from "./wrapper";
 import { AbiItem } from "../types";
+import { GasPorter } from "./gas_porter";
 
 export * from "./bridge";
 export * from "./bridge_util";
 export * from "./wrapper";
+export * from "./gas_porter";
 
 export class LxLyClient extends BridgeClient {
 
     wrappers: IWrappers = {};
+    gasPorters: IGasPorters = {};
 
     init(config: IBaseClientConfig) {
         const client = this.client;
@@ -33,6 +36,14 @@ export class LxLyClient extends BridgeClient {
                     this.wrappers[key] = new Wrapper(
                         this.client,
                         value.configuration.wrapperAddress,
+                        Number(key)
+                    );
+                }
+
+                if (value.configuration.gasPorterAddress) {
+                    this.gasPorters[key] = new GasPorter(
+                        this.client,
+                        value.configuration.gasPorterAddress,
                         Number(key)
                     );
                 }
