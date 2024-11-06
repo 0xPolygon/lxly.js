@@ -84,7 +84,7 @@ export class GasPorter extends BaseToken<IBaseClientConfig> {
         option?: ITransactionOption
     ) {
         return this.method(
-            "determineConversion",
+            "determineGasset",
             destinationNetworkGasTokenNetwork,
             destinationNetworkGasTokenAddress,
             gassetType
