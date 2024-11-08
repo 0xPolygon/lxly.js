@@ -37,10 +37,10 @@ export class GasPorter extends BaseToken<IBaseClientConfig> {
         gasset: string,
         gassetSource: GassetSource,
         gassetPermitData: string,
-        gassetAmount: number,
+        gassetAmount: string,
         swapCalldata: string,
         token: string,
-        tokenAmount: number,
+        tokenAmount: string,
         tokenPermitData: string,
         option?: ITransactionOption
     ) {
