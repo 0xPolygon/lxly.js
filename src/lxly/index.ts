@@ -104,7 +104,8 @@ export class LxLyClient extends BridgeClient {
         return {
             bridge: this.bridges[networkId],
             bridgeUtil: this.bridgeUtil,
-            wrapper: this.wrappers[networkId]
+            wrapper: this.wrappers[networkId],
+            gasPorter: this.gasPorters[networkId]
         } as IContracts;
     }
 }

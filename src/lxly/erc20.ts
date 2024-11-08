@@ -15,6 +15,9 @@ import {
     BaseContract,
     BaseWeb3Client,
     IClaimPayload,
+    ICargo,
+    GassetSource,
+    ConversionAuthorization,
 } from '..';
 import {
     IAllowanceTransactionOption,
@@ -769,5 +772,49 @@ export class ERC20 extends Token {
         const spenderAddress = option.spenderAddress ? option.spenderAddress : this.getBridgeAddress();
 
         return this.getPermitData_(amount, spenderAddress);
+    }
+
+    getPlotRoute(cargo: ICargo, option?: ITransactionOption) {
+        return this.gasPorter.plotRoute(cargo, option)
+    }
+
+    bridgeAssetAndGas(
+        requestConversion: boolean,
+        forceUpdateGlobalExitRoot: boolean,
+        destinationNetwork: number,
+        destinationAddress: string,
+        gasset: string,
+        gassetSource: GassetSource,
+        gassetPermitData: string,
+        gassetAmount: number,
+        swapCalldata: string,
+        token: string,
+        tokenAmount: number,
+        tokenPermitData: string,
+        option?: ITransactionOption
+    ) {
+        return this.gasPorter.bridgeAssetAndGas(
+            requestConversion,
+            forceUpdateGlobalExitRoot,
+            destinationNetwork,
+            destinationAddress,
+            gasset,
+            gassetSource,
+            gassetPermitData,
+            gassetAmount,
+            swapCalldata,
+            token,
+            tokenAmount,
+            tokenPermitData,
+            option
+        )
+    }
+
+    convertGasset(
+        data: ConversionAuthorization,
+        signature: string,
+        option?: ITransactionOption
+    ) {
+        return this.gasPorter.convertGasset(data, signature, option)
     }
 }

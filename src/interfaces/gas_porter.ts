@@ -12,7 +12,7 @@ export enum GassetSource {
 
 export interface ICargo {
     // Call:
-    msgValue: number;
+    msgValue: string;
     // Destination:
 
     destinationNetwork: number;
@@ -23,10 +23,10 @@ export interface ICargo {
     // Gasset:
     gassetType: GassetType;
     gassetSource: GassetSource;
-    gassetAmount: number;
+    gassetAmount: string;
     // Asset:
     token: string;
-    tokenAmount: number;
+    tokenAmount: string;
     // Enforced, but not verified:
     gassetPermitData: string;
     swapCalldata: string;
@@ -40,7 +40,7 @@ export interface ConversionAuthorization {
     conversionNonce: number;
     settlementTokenDestinationAddress: string;
     settlementTokenDestinationPermitData: string;
-    settlementTokenDestinationAmount: number;
+    settlementTokenDestinationAmount: string;
     destinationSwapCalldata: string;
-    destinationNativeTokenMinimumAmount: number;
+    destinationNativeTokenMinimumAmount: string;
 }

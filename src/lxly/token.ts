@@ -23,6 +23,10 @@ export class Token extends BaseToken<IBaseClientConfig> {
         return this.contracts.wrapper;
     }
 
+    protected get gasPorter() {
+        return this.contracts.gasPorter;
+    }
+
     protected get bridgeUtil() {
         return this.contracts.bridgeUtil;
     }
