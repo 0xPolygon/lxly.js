@@ -801,7 +801,7 @@ export class ERC20 extends Token {
                     'uint256',
                     'bytes'
                 ]
-            )
+            );
             return {
                 bridgeAssetAndGas: {
                     requestConversion: callDataParams[0],
@@ -819,8 +819,8 @@ export class ERC20 extends Token {
                 },
                 callData: data.callData,
                 msgValue: data.msgValue
-            }
-        })
+            };
+        });
     }
 
     /**
@@ -871,7 +871,7 @@ export class ERC20 extends Token {
             tokenAmount,
             tokenPermitData,
             option
-        )
+        );
     }
 
     /**
@@ -900,8 +900,8 @@ export class ERC20 extends Token {
                 {
                     value: data.msgValue
                 }
-            )
-        })
+            );
+        });
     }
 
     convertGasset(
@@ -909,6 +909,6 @@ export class ERC20 extends Token {
         signature: string,
         option?: ITransactionOption
     ) {
-        return this.gasPorter.convertGasset(data, signature, option)
+        return this.gasPorter.convertGasset(data, signature, option);
     }
 }
