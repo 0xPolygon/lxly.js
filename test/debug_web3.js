@@ -55,6 +55,28 @@ const execute = async () => {
     )
   )
 
+  const tokenWithGas = client.erc20('0x44499312f493F62f2DFd3C6435Ca3603EbFCeeBa', 0);
+
+  console.log(
+    "plotRoute", await tokenWithGas.getPlotRoute({
+      msgValue: '100',
+      destinationNetwork: 1,
+      destinationNetworkGasTokenNetwork: 0,
+      destinationNetworkGasTokenAddress: '0x0000000000000000000000000000000000000000',
+      destinationAddress: '0x222112d597336CB201221Bf3acC0a6230475aF99',
+      destinationGasPorterDex: '0x0000000000000000000000000000000000000000',
+      gassetType: 0,
+      gassetSource: 0,
+      gassetAmount: '100',
+      token: '0x44499312f493F62f2DFd3C6435Ca3603EbFCeeBa',
+      tokenAmount: '10000',
+      gassetPermitData: '0x',
+      swapCalldata: '0x',
+      tokenPermitData: '0x',
+      forceUpdateGlobalExitRoot: true
+    })
+  )
+
   const N0ERC20Token = client.erc20(tokens[0].erc20, 0);
   const N0EtherToken = client.erc20(tokens[0].ether, 0);
 
