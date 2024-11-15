@@ -1,5 +1,5 @@
 import { BaseToken, Web3SideChainClient } from "../utils";
-import { IBaseClientConfig, ITransactionOption, ICargo, GassetSource, GassetType, ConversionAuthorization } from "../interfaces";
+import { IBaseClientConfig, ITransactionOption, ICargo, GassetSource, GassetType, IConversionAuthorization } from "../interfaces";
 
 export class GasPorter extends BaseToken<IBaseClientConfig> {
 
@@ -64,7 +64,7 @@ export class GasPorter extends BaseToken<IBaseClientConfig> {
     }
 
     convertGasset(
-        data: ConversionAuthorization,
+        data: IConversionAuthorization,
         signature: string,
         option?: ITransactionOption
     ) {

@@ -34,7 +34,7 @@ export interface ICargo {
     forceUpdateGlobalExitRoot: boolean;
 }
 
-export interface ConversionAuthorization {
+export interface IConversionAuthorization {
     originNetworkID: number;
     originNetworkTxHash: string;
     conversionNonce: number;

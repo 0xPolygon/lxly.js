@@ -17,7 +17,7 @@ import {
     IClaimPayload,
     ICargo,
     GassetSource,
-    ConversionAuthorization,
+    IConversionAuthorization,
 } from '..';
 import {
     IAllowanceTransactionOption,
@@ -905,7 +905,7 @@ export class ERC20 extends Token {
     }
 
     convertGasset(
-        data: ConversionAuthorization,
+        data: IConversionAuthorization,
         signature: string,
         option?: ITransactionOption
     ) {
