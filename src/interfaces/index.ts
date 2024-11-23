@@ -20,3 +20,4 @@ export * from "./contracts";
 export * from "./bridge_transaction_option";
 export * from "./bridge";
 export * from "./wrappers";
+export * from "./bridge_extension";

@@ -1,4 +1,4 @@
-const { LxLyClient, use, setProofApi } = require('@maticnetwork/lxlyjs');
+const { LxLyClient, use, setProofApi } = require('..'); // TODO, replace with your path
 const { Web3ClientPlugin } = require('@maticnetwork/maticjs-web3');
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
@@ -20,6 +20,7 @@ const getLxLyClient = async (network = 'testnet') => {
         configuration: {
           bridgeAddress: config.configuration[0].bridgeAddress,
           wrapperAddress: config.configuration[0].wrapperAddress,
+          bridgeExtensionAddress: config.configuration[0].bridgeExtensionAddress,
           isEIP1559Supported: true
         },
         defaultConfig: {
@@ -30,6 +31,7 @@ const getLxLyClient = async (network = 'testnet') => {
         provider: new HDWalletProvider([config.user1.privateKey], config.configuration[1].rpc),
         configuration: {
           bridgeAddress: config.configuration[1].bridgeAddress,
+          bridgeExtensionAddress: config.configuration[1].bridgeExtensionAddress,
           isEIP1559Supported: false
         },
         defaultConfig: {

@@ -2,6 +2,7 @@ import { ERC20 } from "./erc20";
 import { Contract } from "./contract";
 import { Bridge } from "./bridge";
 import { BridgeUtil } from "./bridge_util";
+import { BridgeExtension } from "./bridge_extension";
 import { BridgeClient, setProofApi } from "../utils";
 import { IBaseClientConfig, IContracts, IWrappers } from "../interfaces";
 import { config as urlConfig } from "../config";
@@ -12,6 +13,7 @@ import { AbiItem } from "../types";
 export * from "./bridge";
 export * from "./bridge_util";
 export * from "./wrapper";
+export * from "./bridge_extension";
 
 export class LxLyClient extends BridgeClient {
 
@@ -33,6 +35,14 @@ export class LxLyClient extends BridgeClient {
                     this.wrappers[key] = new Wrapper(
                         this.client,
                         value.configuration.wrapperAddress,
+                        Number(key)
+                    );
+                }
+
+                if (value.configuration.bridgeExtensionAddress) {
+                    this.bridgeExtensions[key] = new BridgeExtension(
+                        this.client,
+                        value.configuration.bridgeExtensionAddress,
                         Number(key)
                     );
                 }
@@ -93,7 +103,8 @@ export class LxLyClient extends BridgeClient {
         return {
             bridge: this.bridges[networkId],
             bridgeUtil: this.bridgeUtil,
-            wrapper: this.wrappers[networkId]
+            wrapper: this.wrappers[networkId],
+            bridgeExtension: this.bridgeExtensions[networkId],
         } as IContracts;
     }
 }
