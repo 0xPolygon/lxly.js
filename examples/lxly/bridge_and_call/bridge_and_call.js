@@ -1,8 +1,7 @@
 const { getLxLyClient, tokens, configuration, from } = require('../../utils_lxly');
-const { encodeFunctionData } = require('viem');
 
 // counter example smart contract on destination network.
-const Counter = [
+const CounterABI = [
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -70,28 +69,43 @@ const execute = async () => {
     const sourceNetwork = 1; 
     // sending to zkyoto
     const destinationNetwork = 0;
-    // prepare the call data for the counter smart contract on destination chain.
-    const callData = encodeFunctionData({
-        abi: Counter,
-        functionName: "increment",
-        args: ["0x4"]
-    })
     // change it to the counter smart contract deployed on destination network.
     const callAddress = "0x43854F7B2a37fA13182BBEA76E50FC8e3D298CF1";
     // if transaction fails, then the funds will be sent back to user's address on destination network.
     const fallbackAddress = from;
     // if true, then the global exit root will be updated.
     const forceUpdateGlobalExitRoot = true;
+    // get the call Contract ABI instance.
+    const callContract = client.contract(CounterABI, callAddress, destinationNetwork);
+    // prepare the call data for the counter smart contract on destination chain.
+    const callData = await callContract.encodeAbi("increment", "0x4");  
+    
+    let result;
     // Call bridgeAndCall function.
-    const result = await client.bridgeExtensions[sourceNetwork].bridgeAndCall(
-        token,
-        amount,
-        destinationNetwork,
-        callAddress,
-        fallbackAddress,
-        callData,
-        forceUpdateGlobalExitRoot,
-    )
+    if (client.client.network === "testnet") {
+        console.log("testnet");
+        result = await client.bridgeExtensions[sourceNetwork].bridgeAndCall(
+            token,
+            amount,
+            destinationNetwork,
+            callAddress,
+            fallbackAddress,
+            callData,
+            forceUpdateGlobalExitRoot,
+            permitData="0x0", // permitData is optional
+        )
+    } else {
+        console.log("mainnet");
+        result = await client.bridgeExtensions[sourceNetwork].bridgeAndCall(
+            token,
+            amount,
+            destinationNetwork,
+            callAddress,
+            fallbackAddress,
+            callData,
+            forceUpdateGlobalExitRoot,
+        )
+    }
 
     console.log("result", result);
     const txHash = await result.getTransactionHash();

@@ -1,4 +1,4 @@
-const { LxLyClient, use, setProofApi } = require('..'); // TODO, replace with your path
+const { LxLyClient, use, setProofApi } = require('@maticnetwork/lxlyjs');
 const { Web3ClientPlugin } = require('@maticnetwork/maticjs-web3');
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
@@ -8,7 +8,7 @@ const config = require('./config');
 const SCALING_FACTOR = new bn(10).pow(new bn(18));
 
 use(Web3ClientPlugin)
-setProofApi('https://api-gateway.polygon.technology/api/v3/proof/mainnet')
+setProofApi('https://api-gateway.polygon.technology/api/v3/proof/testnet')
 const getLxLyClient = async (network = 'testnet') => {
   const lxLyClient = new LxLyClient();
   return await lxLyClient.init({
