@@ -15,6 +15,9 @@ import {
     BaseContract,
     BaseWeb3Client,
     IClaimPayload,
+    ICargo,
+    GassetSource,
+    IConversionAuthorization,
 } from '..';
 import {
     IAllowanceTransactionOption,
@@ -769,5 +772,143 @@ export class ERC20 extends Token {
         const spenderAddress = option.spenderAddress ? option.spenderAddress : this.getBridgeAddress();
 
         return this.getPermitData_(amount, spenderAddress);
+    }
+
+    /**
+     * Get the plot route call data for bridge asset and gas
+     * @param {ICargo} cargo
+     * @param {ITransactionOption} option
+     * 
+     * @returns
+     * @memberof ERC20
+     */
+    getPlotRoute(cargo: ICargo, option?: ITransactionOption) {
+        const client = this.client.providers[this.contractParam.networkId].provider;
+        return this.gasPorter.plotRoute(cargo, option).then((data: any) => {
+            const callDataParams = client.decodeParameters(
+                `0x${data.callData.slice(10)}`,
+                [
+                    'bool',
+                    'bool',
+                    'uint32',
+                    'address',
+                    'address',
+                    'uint32',
+                    'bytes',
+                    'uint256',
+                    'bytes',
+                    'address',
+                    'uint256',
+                    'bytes'
+                ]
+            );
+            return {
+                bridgeAssetAndGas: {
+                    requestConversion: callDataParams[0],
+                    forceUpdateGlobalExitRoot: callDataParams[1],
+                    destinationNetwork: callDataParams[2],
+                    destinationAddress: callDataParams[3],
+                    gasset: callDataParams[4],
+                    gassetSource: callDataParams[5],
+                    gassetPermitData: callDataParams[6] || '0x',
+                    gassetAmount: callDataParams[7],
+                    swapCalldata: callDataParams[8] || '0x',
+                    token: callDataParams[9],
+                    tokenAmount: callDataParams[10],
+                    tokenPermitData: callDataParams[11] || '0x'
+                },
+                callData: data.callData,
+                msgValue: data.msgValue
+            };
+        });
+    }
+
+    /**
+     * bridge asset and gas function
+     * @param {boolean} requestConversion - It tells if the conversion is required on destination chain or not
+     * @param {boolean} forceUpdateGlobalExitRoot
+     * @param {number} destinationNetwork - the network on which the funds needs to be bridged
+     * @param {string} destinationAddress - the address to which funds will be deposited
+     * @param {string} gasset - address of the gas token
+     * @param {GassetSource} gassetSource - the source of the gas token amount. it can be directly msg value, or dex swap or if user already has the ERC20 token then erc20.
+     * @param {string} gassetPermitData - Permit data required to give permit to gasPorter for the gas token.
+     * @param {string} gassetAmount - amount of gas token to be bridged
+     * @param {string} swapCalldata - swap call data if swapping is required on the source chain
+     * @param {string} token - token to be bridged
+     * @param {string} tokenAmount - amount of token to be bridged
+     * @param {string} tokenPermitData - Permit data required to give permit to gasPorter for the token to be bridged.
+     * @param {ITransactionOption} option
+     * 
+     * @returns
+     * @memberof ERC20
+     */
+    bridgeAssetAndGas(
+        requestConversion: boolean,
+        forceUpdateGlobalExitRoot: boolean,
+        destinationNetwork: number,
+        destinationAddress: string,
+        gasset: string,
+        gassetSource: GassetSource,
+        gassetPermitData: string,
+        gassetAmount: string,
+        swapCalldata: string,
+        token: string,
+        tokenAmount: string,
+        tokenPermitData: string,
+        option?: ITransactionOption
+    ) {
+        return this.gasPorter.bridgeAssetAndGas(
+            requestConversion,
+            forceUpdateGlobalExitRoot,
+            destinationNetwork,
+            destinationAddress,
+            gasset,
+            gassetSource,
+            gassetPermitData,
+            gassetAmount,
+            swapCalldata,
+            token,
+            tokenAmount,
+            tokenPermitData,
+            option
+        );
+    }
+
+    /**
+     * Get the plot route call data for bridge asset and gas and then do the bridgeAssetAndGas transaction
+     * @param {ICargo} cargo
+     * @param {ITransactionOption} option
+     * 
+     * @returns
+     * @memberof ERC20
+     */
+    bridgeAssetAndGasWithPlotRoute(cargo: ICargo, option?: ITransactionOption) {
+        return this.getPlotRoute(cargo, option).then(data => {
+            return this.gasPorter.bridgeAssetAndGas(
+                data.bridgeAssetAndGas.requestConversion,
+                data.bridgeAssetAndGas.forceUpdateGlobalExitRoot,
+                data.bridgeAssetAndGas.destinationNetwork,
+                data.bridgeAssetAndGas.destinationAddress,
+                data.bridgeAssetAndGas.gasset,
+                data.bridgeAssetAndGas.gassetSource,
+                data.bridgeAssetAndGas.gassetPermitData,
+                data.bridgeAssetAndGas.gassetAmount,
+                data.bridgeAssetAndGas.swapCalldata,
+                data.bridgeAssetAndGas.token,
+                data.bridgeAssetAndGas.tokenAmount,
+                data.bridgeAssetAndGas.tokenPermitData,
+                {
+                    value: data.msgValue
+                }
+            );
+        });
+    }
+
+    convertGasset(
+        data: IConversionAuthorization,
+        signature: string,
+        option?: ITransactionOption
+    ) {
+        return this.gasPorter.convertGasset(data, signature, option);
     }
 }

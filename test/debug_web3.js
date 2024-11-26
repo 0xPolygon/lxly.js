@@ -4,6 +4,7 @@ const { LxLyClient, use, Converter } = require("@maticnetwork/lxlyjs");
 const { Web3ClientPlugin } = require("@maticnetwork/maticjs-web3");
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+const { GassetType } = require("@maticnetwork/lxlyjs");
 
 use(Web3ClientPlugin);
 
@@ -22,6 +23,7 @@ const execute = async () => {
         configuration: {
           bridgeAddress: configuration[0].bridgeAddress,
           wrapperAddress: configuration[0].wrapperAddress,
+          gasPorterAddress: "0x17B8Ee96E3bcB3b04b3e8334de4524520C51caB4",
           isEIP1559Supported: false
         },
         defaultConfig: {
@@ -41,6 +43,40 @@ const execute = async () => {
     }
   });
 
+  console.log(
+    "determineGasset", await client.gasPorters[0].determineGasset(
+      0, "0x0000000000000000000000000000000000000000", GassetType.NATIVE_TOKEN
+    )
+  )
+
+  console.log(
+    "determineConversion", await client.gasPorters[0].determineConversion(
+      0, "0x0000000000000000000000000000000000000000", "0x0000000000000000000000000000000000000000"
+    )
+  )
+
+  const tokenWithGas = client.erc20('0x44499312f493F62f2DFd3C6435Ca3603EbFCeeBa', 0);
+
+  console.log(
+    "plotRoute", await tokenWithGas.getPlotRoute({
+      msgValue: '100',
+      destinationNetwork: 1,
+      destinationNetworkGasTokenNetwork: 0,
+      destinationNetworkGasTokenAddress: '0x0000000000000000000000000000000000000000',
+      destinationAddress: '0x222112d597336CB201221Bf3acC0a6230475aF99',
+      destinationGasPorterDex: '0x0000000000000000000000000000000000000000',
+      gassetType: 0,
+      gassetSource: 0,
+      gassetAmount: '100',
+      token: '0x44499312f493F62f2DFd3C6435Ca3603EbFCeeBa',
+      tokenAmount: '10000',
+      gassetPermitData: '0x',
+      swapCalldata: '0x',
+      tokenPermitData: '0x',
+      forceUpdateGlobalExitRoot: true
+    })
+  )
+
   const N0ERC20Token = client.erc20(tokens[0].erc20, 0);
   const N0EtherToken = client.erc20(tokens[0].ether, 0);
 
@@ -51,7 +87,7 @@ const execute = async () => {
   // console.log('balance of N0ERC20Token is', await N0ERC20Token.getBalance(from));
 
   // getEtherBalance on network 0
-  console.log('balance of N0EtherToken is', await N0EtherToken.getBalance(from));
+  // console.log('balance of N0EtherToken is', await N0EtherToken.getBalance(from));
 
   // // getBalance on network 1
   // console.log('balance of N1ERC20Token is', await N1ERC20Token.getBalance(from));
@@ -90,7 +126,7 @@ const execute = async () => {
   // // Bridge ERC20 from 0 to 1 with gas
   // var tx = await N0ERC20Token.bridgeAssetWithGas("10000000000000000000", from, '100000000000000000', 1, {returnTransaction: false});
   // return console.log("hash", await tx.getTransactionHash());
-  
+
   // // Bridge Ether from 1 to 0
   // var tx = await N1EtherToken.bridgeAsset("1000000000000000", from, 0, {returnTransaction: false});
   // return console.log("hash", await tx.getTransactionHash());

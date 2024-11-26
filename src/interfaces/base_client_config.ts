@@ -3,6 +3,7 @@ export interface IProviderConfig {
     configuration?: {
         bridgeAddress?: string,
         wrapperAddress?: string,
+        gasPorterAddress?: string,
         isEIP1559Supported?: boolean,
     };
     defaultConfig?: {
