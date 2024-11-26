@@ -19,4 +19,6 @@ export * from "./approve_transaction_option";
 export * from "./contracts";
 export * from "./bridge_transaction_option";
 export * from "./bridge";
+export * from "./gas_porter";
+export * from "./gas_porters";
 export * from "./wrappers";

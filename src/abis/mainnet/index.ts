@@ -5,8 +5,10 @@ import PolygonZkEVMGlobalExitRoot from "./PolygonZkEVMGlobalExitRoot";
 import PolygonZkEVMGlobalExitRootL2 from "./PolygonZkEVMGlobalExitRootL2";
 import ZkEVMBridgeAdapter from "./ZkEVMBridgeAdapter";
 import ZkEVMWrapper from "./ZkEVMWrapper";
+import GasPorter from "./GasPorter";
 
 export default {
+    GasPorter,
     ERC20,
     PolygonZkEVM,
     PolygonZkEVMBridge,
