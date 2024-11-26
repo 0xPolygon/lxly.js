@@ -3,12 +3,15 @@ import { BridgeUtil } from "../lxly";
 import { service } from "../services";
 import { IBaseClientConfig } from "..";
 import { IBridges } from "../interfaces";
+import { IBridgeExtensions } from "../interfaces/bridge_extension";
+import { BridgeExtension } from "../lxly/bridge_extension";
 
 export class BridgeClient {
 
     client: Web3SideChainClient<IBaseClientConfig> = new Web3SideChainClient();
     bridgeUtil: BridgeUtil;
     bridges: IBridges = {};
+    bridgeExtensions: IBridgeExtensions = {};
 
     /**
      * check if the bridge is claimable

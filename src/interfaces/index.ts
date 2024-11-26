@@ -22,3 +22,4 @@ export * from "./bridge";
 export * from "./gas_porter";
 export * from "./gas_porters";
 export * from "./wrappers";
+export * from "./bridge_extension";

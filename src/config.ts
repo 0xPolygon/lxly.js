@@ -1,6 +1,6 @@
 export const config = {
   BridgeService: {
-    testnet: 'https://proof-generator.polygon.technology/api/zkevm/cardona/',
-    mainnet: 'https://proof-generator.polygon.technology/api/zkevm/mainnet/'
+    testnet: 'https://api-gateway.polygon.technology/api/v3/proof/testnet/',
+    mainnet: 'https://api-gateway.polygon.technology/api/v3/proof/mainnet/'
   }
 }
