@@ -1,3 +1,4 @@
+import BridgeExtension from "./BridgeExtension";
 import ERC20 from "./ERC20";
 import PolygonZkEVM from "./PolygonZkEVM";
 import PolygonZkEVMBridge from "./PolygonZkEVMBridge";
@@ -15,5 +16,6 @@ export default {
     PolygonZkEVMGlobalExitRoot,
     PolygonZkEVMGlobalExitRootL2,
     ZkEVMBridgeAdapter,
-    ZkEVMWrapper
+    ZkEVMWrapper,
+    BridgeExtension
 }
