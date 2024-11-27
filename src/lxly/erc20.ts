@@ -346,13 +346,14 @@ export class ERC20 extends Token {
         amount: TYPE_AMOUNT,
         userAddress: string,
         destinationNetworkId: number,
-        forceUpdateGlobalExitRoot = true
+        forceUpdateGlobalExitRoot = true,
+        option?: ITransactionOption
     ) {
         // should be allowed to be used only in root chain
         this.checkAdapterPresent("depositCustomERC20");
         // should not be allowed to use for native asset
         this.checkForNonNative("depositCustomERC20");
-        return this.bridgeAdapter.bridgeToken(userAddress, amount, destinationNetworkId, forceUpdateGlobalExitRoot);
+        return this.bridgeAdapter.bridgeToken(userAddress, amount, destinationNetworkId, forceUpdateGlobalExitRoot, option);
     }
 
     /**
@@ -883,7 +884,7 @@ export class ERC20 extends Token {
      * @memberof ERC20
      */
     bridgeAssetAndGasWithPlotRoute(cargo: ICargo, option?: ITransactionOption) {
-        return this.getPlotRoute(cargo, option).then(data => {
+        return this.getPlotRoute(cargo).then(data => {
             return this.gasPorter.bridgeAssetAndGas(
                 data.bridgeAssetAndGas.requestConversion,
                 data.bridgeAssetAndGas.forceUpdateGlobalExitRoot,
@@ -898,6 +899,7 @@ export class ERC20 extends Token {
                 data.bridgeAssetAndGas.tokenAmount,
                 data.bridgeAssetAndGas.tokenPermitData,
                 {
+                    ...option,
                     value: data.msgValue
                 }
             );

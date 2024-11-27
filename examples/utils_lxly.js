@@ -8,7 +8,7 @@ const config = require('./config');
 const SCALING_FACTOR = new bn(10).pow(new bn(18));
 
 use(Web3ClientPlugin)
-setProofApi('https://api-gateway.polygon.technology/api/v3/proof/mainnet')
+setProofApi('https://api-gateway.polygon.technology/api/v3/proof/testnet')
 const getLxLyClient = async (network = 'testnet') => {
   const lxLyClient = new LxLyClient();
   return await lxLyClient.init({
@@ -20,6 +20,7 @@ const getLxLyClient = async (network = 'testnet') => {
         configuration: {
           bridgeAddress: config.configuration[0].bridgeAddress,
           wrapperAddress: config.configuration[0].wrapperAddress,
+          bridgeExtensionAddress: config.configuration[0].bridgeExtensionAddress,
           isEIP1559Supported: true
         },
         defaultConfig: {
@@ -30,6 +31,7 @@ const getLxLyClient = async (network = 'testnet') => {
         provider: new HDWalletProvider([config.user1.privateKey], config.configuration[1].rpc),
         configuration: {
           bridgeAddress: config.configuration[1].bridgeAddress,
+          bridgeExtensionAddress: config.configuration[1].bridgeExtensionAddress,
           isEIP1559Supported: false
         },
         defaultConfig: {

@@ -26,7 +26,7 @@ export class Bridge extends BaseToken<IBaseClientConfig> {
      * @param {string} token Token address
      * @param {number} destinationNetwork Network at which tokens will be bridged
      * @param {string} destinationAddress Address to which tokens will be bridged
-     * @param {TYPE_AMOUNT} amountamount amount of tokens
+     * @param {TYPE_AMOUNT} amount amount of tokens
      * @param {string} [permitData] Permit data to avoid approve call
      * @param {ITransactionOption} [option] 
      * 
