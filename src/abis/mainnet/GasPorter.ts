@@ -1,1 +1,999 @@
-export default [{ "inputs": [{ "internalType": "address", "name": "lxlyBridge_", "type": "address" }, { "internalType": "address", "name": "dex_", "type": "address" }, { "internalType": "address", "name": "settlementToken_", "type": "address" }], "stateMutability": "nonpayable", "type": "constructor" }, { "inputs": [], "name": "CannotDetermineConversionBecauseWrappedTokenDoesNotExist", "type": "error" }, { "inputs": [], "name": "CannotDetermineGassetBecauseWrappedTokenDoesNotExist", "type": "error" }, { "inputs": [], "name": "CannotDetermineGassetMakeSureDestinationNetworkParametersAreCorrect", "type": "error" }, { "inputs": [], "name": "CannotRefuelGas", "type": "error" }, { "inputs": [], "name": "CannotReturnExcessiveMessageValueToYou", "type": "error" }, { "inputs": [], "name": "DestinationAddressCannotBeAddressZero", "type": "error" }, { "inputs": [], "name": "DestinationNetworkCannotBeCurrentNetwork", "type": "error" }, { "inputs": [], "name": "ECDSAInvalidSignature", "type": "error" }, { "inputs": [{ "internalType": "uint256", "name": "length", "type": "uint256" }], "name": "ECDSAInvalidSignatureLength", "type": "error" }, { "inputs": [{ "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "ECDSAInvalidSignatureS", "type": "error" }, { "inputs": [], "name": "GasPorterOnCurrentNetworkDoesNotSupportDexSwapAsGassetSourceYet", "type": "error" }, { "inputs": [], "name": "GasPorterOnCurrentNetworkDoesNotSupportGassetConversionYet", "type": "error" }, { "inputs": [], "name": "GasPorterOnDestinationNetworkDoesNotSupportGassetConversionYet", "type": "error" }, { "inputs": [], "name": "GassetAmountCannotBeZero", "type": "error" }, { "inputs": [], "name": "GassetCannotBeDolphinAddressDidYouMeanAddressZero", "type": "error" }, { "inputs": [], "name": "GassetPermitDataMustBeEmptyWhenGassetIsNativeToken", "type": "error" }, { "inputs": [], "name": "GassetTypeCannotBeERC20TokenWhenNativeTokensAreTheSame", "type": "error" }, { "inputs": [], "name": "GassetTypeCannotBeNativeTokenWhenNativeTokensAreDifferent", "type": "error" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "uint256", "name": "minimumAmount", "type": "uint256" }], "name": "InsufficientAmountInERC20Permit", "type": "error" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "uint256", "name": "minimumAmount", "type": "uint256" }], "name": "InsufficientMessageValue", "type": "error" }, { "inputs": [], "name": "InvalidConversionNonce", "type": "error" }, { "inputs": [], "name": "InvalidGassetTypeAndGassetSourceCombination", "type": "error" }, { "inputs": [], "name": "InvalidInitialization", "type": "error" }, { "inputs": [], "name": "InvalidToken", "type": "error" }, { "inputs": [], "name": "NotInitializing", "type": "error" }, { "inputs": [], "name": "OriginNetworkCannotBeCurrentNetwork", "type": "error" }, { "inputs": [], "name": "SwapCalldataCannotBeEmptyWhenGassetSourceIsDexSwap", "type": "error" }, { "inputs": [], "name": "SwapCalldataMustBeEmptyWhenGassetSourceIsNotDexSwap", "type": "error" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "SwapFailedBecauseDexGaveInsufficientAmount", "type": "error" }, { "inputs": [{ "internalType": "bytes", "name": "reason", "type": "bytes" }], "name": "SwapFailedBecauseDexReverted", "type": "error" }, { "inputs": [], "name": "SwapFailedBecauseDexRevertedWithoutExplanation", "type": "error" }, { "inputs": [], "name": "ThisFunctionIsOnlyCallableByGasPorter", "type": "error" }, { "inputs": [], "name": "TokenAmountCannotBeZero", "type": "error" }, { "inputs": [], "name": "TokenPermitDataMustBeEmptyWhenAssetAndGassetAreTheSameAndGassetPermitDataIsProvided", "type": "error" }, { "inputs": [], "name": "TokenPermitDataMustBeEmptyWhenAssetIsNativeToken", "type": "error" }, { "inputs": [], "name": "UnknownFunctionSelectorInERC20Permit", "type": "error" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "uint32", "name": "originNetworkID", "type": "uint32" }, { "indexed": true, "internalType": "bytes32", "name": "originNetworkTxHash", "type": "bytes32" }, { "indexed": false, "internalType": "address", "name": "signer", "type": "address" }, { "indexed": true, "internalType": "address", "name": "msgSender", "type": "address" }, { "indexed": false, "internalType": "bytes", "name": "reason", "type": "bytes" }], "name": "ConversionFailed", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint32", "name": "destinationNetwork", "type": "uint32" }, { "indexed": false, "internalType": "address", "name": "destinationAddress", "type": "address" }, { "indexed": false, "internalType": "address", "name": "gasset", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "bridgedGassetAmount", "type": "uint256" }], "name": "ConversionRequested", "type": "event" }, { "anonymous": false, "inputs": [], "name": "EIP712DomainChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "uint32", "name": "originNetworkID", "type": "uint32" }, { "indexed": true, "internalType": "bytes32", "name": "originNetworkTxHash", "type": "bytes32" }, { "indexed": true, "internalType": "address", "name": "signer", "type": "address" }], "name": "GassetConverted", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint64", "name": "version", "type": "uint64" }], "name": "Initialized", "type": "event" }, { "inputs": [], "name": "WETHToken", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "bool", "name": "requestConversion", "type": "bool" }, { "internalType": "bool", "name": "forceUpdateGlobalExitRoot", "type": "bool" }, { "internalType": "uint32", "name": "destinationNetwork", "type": "uint32" }, { "internalType": "address", "name": "destinationAddress", "type": "address" }, { "internalType": "address", "name": "gasset", "type": "address" }, { "internalType": "enum GasPorter.GassetSource", "name": "gassetSource", "type": "uint8" }, { "internalType": "bytes", "name": "gassetPermitData", "type": "bytes" }, { "internalType": "uint256", "name": "gassetAmount", "type": "uint256" }, { "internalType": "bytes", "name": "swapCalldata", "type": "bytes" }, { "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "tokenAmount", "type": "uint256" }, { "internalType": "bytes", "name": "tokenPermitData", "type": "bytes" }], "name": "bridgeAssetAndGas", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "user", "type": "address" }, { "internalType": "uint32", "name": "originNetworkID", "type": "uint32" }], "name": "conversionNonce", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "components": [{ "internalType": "uint32", "name": "originNetworkID", "type": "uint32" }, { "internalType": "bytes32", "name": "originNetworkTxHash", "type": "bytes32" }, { "internalType": "uint256", "name": "conversionNonce", "type": "uint256" }, { "internalType": "address", "name": "settlementTokenDestinationAddress", "type": "address" }, { "internalType": "bytes", "name": "settlementTokenDestinationPermitData", "type": "bytes" }, { "internalType": "uint256", "name": "settlementTokenDestinationAmount", "type": "uint256" }, { "internalType": "bytes", "name": "destinationSwapCalldata", "type": "bytes" }, { "internalType": "uint256", "name": "destinationNativeTokenMinimumAmount", "type": "uint256" }], "internalType": "struct GasPorter.ConversionAuthorizationData", "name": "authorizationData", "type": "tuple" }, { "internalType": "address", "name": "signer", "type": "address" }], "name": "convertGasset", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "components": [{ "components": [{ "internalType": "uint32", "name": "originNetworkID", "type": "uint32" }, { "internalType": "bytes32", "name": "originNetworkTxHash", "type": "bytes32" }, { "internalType": "uint256", "name": "conversionNonce", "type": "uint256" }, { "internalType": "address", "name": "settlementTokenDestinationAddress", "type": "address" }, { "internalType": "bytes", "name": "settlementTokenDestinationPermitData", "type": "bytes" }, { "internalType": "uint256", "name": "settlementTokenDestinationAmount", "type": "uint256" }, { "internalType": "bytes", "name": "destinationSwapCalldata", "type": "bytes" }, { "internalType": "uint256", "name": "destinationNativeTokenMinimumAmount", "type": "uint256" }], "internalType": "struct GasPorter.ConversionAuthorizationData", "name": "data", "type": "tuple" }, { "internalType": "bytes", "name": "signature", "type": "bytes" }], "internalType": "struct GasPorter.ConversionAuthorization", "name": "authorization", "type": "tuple" }], "name": "convertGasset", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint32", "name": "destinationNetworkGasTokenNetwork", "type": "uint32" }, { "internalType": "address", "name": "destinationNetworkGasTokenAddress", "type": "address" }, { "internalType": "address", "name": "gasset", "type": "address" }], "name": "determineConversion", "outputs": [{ "internalType": "bool", "name": "conversionRequired", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint32", "name": "destinationNetworkGasTokenNetwork", "type": "uint32" }, { "internalType": "address", "name": "destinationNetworkGasTokenAddress", "type": "address" }, { "internalType": "enum GasPorter.GassetType", "name": "gassetType", "type": "uint8" }], "name": "determineGasset", "outputs": [{ "internalType": "address", "name": "gasset", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "dex", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "eip712Domain", "outputs": [{ "internalType": "bytes1", "name": "fields", "type": "bytes1" }, { "internalType": "string", "name": "name", "type": "string" }, { "internalType": "string", "name": "version", "type": "string" }, { "internalType": "uint256", "name": "chainId", "type": "uint256" }, { "internalType": "address", "name": "verifyingContract", "type": "address" }, { "internalType": "bytes32", "name": "salt", "type": "bytes32" }, { "internalType": "uint256[]", "name": "extensions", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "gasTokenAddress", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "gasTokenNetwork", "outputs": [{ "internalType": "uint32", "name": "", "type": "uint32" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "initialize", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "lxlyBridge", "outputs": [{ "internalType": "contract ILxlyBridge", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "networkID", "outputs": [{ "internalType": "uint32", "name": "", "type": "uint32" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "components": [{ "internalType": "uint256", "name": "msgValue", "type": "uint256" }, { "internalType": "uint32", "name": "destinationNetwork", "type": "uint32" }, { "internalType": "uint32", "name": "destinationNetworkGasTokenNetwork", "type": "uint32" }, { "internalType": "address", "name": "destinationNetworkGasTokenAddress", "type": "address" }, { "internalType": "address", "name": "destinationAddress", "type": "address" }, { "internalType": "address", "name": "destinationGasPorterDex", "type": "address" }, { "internalType": "enum GasPorter.GassetType", "name": "gassetType", "type": "uint8" }, { "internalType": "enum GasPorter.GassetSource", "name": "gassetSource", "type": "uint8" }, { "internalType": "uint256", "name": "gassetAmount", "type": "uint256" }, { "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "tokenAmount", "type": "uint256" }, { "internalType": "bytes", "name": "gassetPermitData", "type": "bytes" }, { "internalType": "bytes", "name": "swapCalldata", "type": "bytes" }, { "internalType": "bytes", "name": "tokenPermitData", "type": "bytes" }, { "internalType": "bool", "name": "forceUpdateGlobalExitRoot", "type": "bool" }], "internalType": "struct GasPorter.Cargo", "name": "cargo", "type": "tuple" }], "name": "plotRoute", "outputs": [{ "internalType": "uint256", "name": "msgValue", "type": "uint256" }, { "internalType": "bytes", "name": "callData", "type": "bytes" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "settlementToken", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "settlementTokenIsNativeToken", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "version", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "pure", "type": "function" }, { "stateMutability": "payable", "type": "receive" }]
+export default [
+    {
+        "type": "constructor",
+        "inputs": [
+            {
+                "name": "lxlyBridge_",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "dex_",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "settlementToken_",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "receive",
+        "stateMutability": "payable"
+    },
+    {
+        "type": "function",
+        "name": "WETHToken",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "bridgeAssetAndGas",
+        "inputs": [
+            {
+                "name": "requestConversion",
+                "type": "bool",
+                "internalType": "bool"
+            },
+            {
+                "name": "forceUpdateGlobalExitRoot",
+                "type": "bool",
+                "internalType": "bool"
+            },
+            {
+                "name": "destinationNetwork",
+                "type": "uint32",
+                "internalType": "uint32"
+            },
+            {
+                "name": "destinationAddress",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "trackingNumber",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "gasset",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "gassetSource",
+                "type": "uint8",
+                "internalType": "enum GasPorter.GassetSource"
+            },
+            {
+                "name": "gassetPermitData",
+                "type": "bytes",
+                "internalType": "bytes"
+            },
+            {
+                "name": "gassetAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "swapCalldata",
+                "type": "bytes",
+                "internalType": "bytes"
+            },
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "tokenAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "tokenPermitData",
+                "type": "bytes",
+                "internalType": "bytes"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "payable"
+    },
+    {
+        "type": "function",
+        "name": "conversionNonce",
+        "inputs": [
+            {
+                "name": "user",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "originNetworkID",
+                "type": "uint32",
+                "internalType": "uint32"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "convertGasset",
+        "inputs": [
+            {
+                "name": "authorization",
+                "type": "tuple",
+                "internalType": "struct GasPorter.ConversionAuthorization",
+                "components": [
+                    {
+                        "name": "data",
+                        "type": "tuple",
+                        "internalType": "struct GasPorter.ConversionAuthorizationData",
+                        "components": [
+                            {
+                                "name": "originNetworkID",
+                                "type": "uint32",
+                                "internalType": "uint32"
+                            },
+                            {
+                                "name": "trackingNumber",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "name": "signer",
+                                "type": "address",
+                                "internalType": "address"
+                            },
+                            {
+                                "name": "conversionNonce",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "name": "gassetDestinationAddress",
+                                "type": "address",
+                                "internalType": "address"
+                            },
+                            {
+                                "name": "gassetDestinationPermitData",
+                                "type": "bytes",
+                                "internalType": "bytes"
+                            },
+                            {
+                                "name": "gassetDestinationAmount",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "name": "destinationNativeTokenMinimumAmountFromDex",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "name": "destinationNativeTokenMinimumAmountFromMsg",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "name": "deadline",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "signature",
+                        "type": "bytes",
+                        "internalType": "bytes"
+                    }
+                ]
+            },
+            {
+                "name": "swapCalldata",
+                "type": "bytes",
+                "internalType": "bytes"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "payable"
+    },
+    {
+        "type": "function",
+        "name": "convertGasset_",
+        "inputs": [
+            {
+                "name": "authorizationData",
+                "type": "tuple",
+                "internalType": "struct GasPorter.ConversionAuthorizationData",
+                "components": [
+                    {
+                        "name": "originNetworkID",
+                        "type": "uint32",
+                        "internalType": "uint32"
+                    },
+                    {
+                        "name": "trackingNumber",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "signer",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "conversionNonce",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "gassetDestinationAddress",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "gassetDestinationPermitData",
+                        "type": "bytes",
+                        "internalType": "bytes"
+                    },
+                    {
+                        "name": "gassetDestinationAmount",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "destinationNativeTokenMinimumAmountFromDex",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "destinationNativeTokenMinimumAmountFromMsg",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "deadline",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    }
+                ]
+            },
+            {
+                "name": "signer",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "swapCalldata",
+                "type": "bytes",
+                "internalType": "bytes"
+            },
+            {
+                "name": "useDex",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "determineConversion",
+        "inputs": [
+            {
+                "name": "destinationNetworkGasTokenNetwork",
+                "type": "uint32",
+                "internalType": "uint32"
+            },
+            {
+                "name": "destinationNetworkGasTokenAddress",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "gasset",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "conversionRequired",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "determineGasset",
+        "inputs": [
+            {
+                "name": "destinationNetworkGasTokenNetwork",
+                "type": "uint32",
+                "internalType": "uint32"
+            },
+            {
+                "name": "destinationNetworkGasTokenAddress",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "gassetType",
+                "type": "uint8",
+                "internalType": "enum GasPorter.GassetType"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "gasset",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "dex",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "eip712Domain",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "fields",
+                "type": "bytes1",
+                "internalType": "bytes1"
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "version",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "chainId",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "verifyingContract",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "salt",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "extensions",
+                "type": "uint256[]",
+                "internalType": "uint256[]"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "gasTokenAddress",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "gasTokenNetwork",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint32",
+                "internalType": "uint32"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "initialize",
+        "inputs": [],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "invalidateConversionNonce",
+        "inputs": [
+            {
+                "name": "originNetworkID",
+                "type": "uint32",
+                "internalType": "uint32"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "lxlyBridge",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "contract ILxlyBridge"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "networkID",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint32",
+                "internalType": "uint32"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "plotRoute",
+        "inputs": [
+            {
+                "name": "cargo",
+                "type": "tuple",
+                "internalType": "struct GasPorter.Cargo",
+                "components": [
+                    {
+                        "name": "msgValue",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "destinationNetwork",
+                        "type": "uint32",
+                        "internalType": "uint32"
+                    },
+                    {
+                        "name": "destinationNetworkGasTokenNetwork",
+                        "type": "uint32",
+                        "internalType": "uint32"
+                    },
+                    {
+                        "name": "destinationNetworkGasTokenAddress",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "destinationAddress",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "destinationGasPorterDex",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "gassetType",
+                        "type": "uint8",
+                        "internalType": "enum GasPorter.GassetType"
+                    },
+                    {
+                        "name": "gassetSource",
+                        "type": "uint8",
+                        "internalType": "enum GasPorter.GassetSource"
+                    },
+                    {
+                        "name": "gassetAmount",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "token",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "tokenAmount",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "gassetPermitData",
+                        "type": "bytes",
+                        "internalType": "bytes"
+                    },
+                    {
+                        "name": "swapCalldata",
+                        "type": "bytes",
+                        "internalType": "bytes"
+                    },
+                    {
+                        "name": "tokenPermitData",
+                        "type": "bytes",
+                        "internalType": "bytes"
+                    },
+                    {
+                        "name": "forceUpdateGlobalExitRoot",
+                        "type": "bool",
+                        "internalType": "bool"
+                    },
+                    {
+                        "name": "trackingNumber",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    }
+                ]
+            }
+        ],
+        "outputs": [
+            {
+                "name": "msgValue",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "callData",
+                "type": "bytes",
+                "internalType": "bytes"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "settlementToken",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "settlementTokenIsNativeToken",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "version",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "string",
+                "internalType": "string"
+            }
+        ],
+        "stateMutability": "pure"
+    },
+    {
+        "type": "event",
+        "name": "ConversionFailed",
+        "inputs": [
+            {
+                "name": "originNetworkID",
+                "type": "uint32",
+                "indexed": true,
+                "internalType": "uint32"
+            },
+            {
+                "name": "trackingNumber",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "signer",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            },
+            {
+                "name": "msgSender",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "reason",
+                "type": "bytes",
+                "indexed": false,
+                "internalType": "bytes"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "ConversionRequested",
+        "inputs": [
+            {
+                "name": "trackingNumber",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "destinationNetwork",
+                "type": "uint32",
+                "indexed": false,
+                "internalType": "uint32"
+            },
+            {
+                "name": "destinationAddress",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "gasset",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "bridgedGassetAmount",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "EIP712DomainChanged",
+        "inputs": [],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "GassetConverted",
+        "inputs": [
+            {
+                "name": "originNetworkID",
+                "type": "uint32",
+                "indexed": true,
+                "internalType": "uint32"
+            },
+            {
+                "name": "trackingNumber",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "signer",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Initialized",
+        "inputs": [
+            {
+                "name": "version",
+                "type": "uint64",
+                "indexed": false,
+                "internalType": "uint64"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "error",
+        "name": "AuthorizationExpired",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "CannotDeliverNativeTokenToRecipient",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "CannotDetermineConversionBecauseWrappedTokenDoesNotExist",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "CannotDetermineGassetBecauseWrappedTokenDoesNotExist",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "CannotDetermineGassetMakeSureDestinationNetworkParametersAreCorrect",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "CannotReturnExcessiveMessageValueToYou",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "CannotReturnNativeTokenToCaller",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ConversionFailedBecauseRecipientWouldNotReceiveMinimumAmountOfNativeToken",
+        "inputs": [
+            {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "DestinationAddressCannotBeAddressZero",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "DestinationNetworkCannotBeCurrentNetwork",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ECDSAInvalidSignature",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ECDSAInvalidSignatureLength",
+        "inputs": [
+            {
+                "name": "length",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "ECDSAInvalidSignatureS",
+        "inputs": [
+            {
+                "name": "s",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "GasPorterOnCurrentNetworkDoesNotSupportDexSwapAsGassetSourceYet",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "GasPorterOnCurrentNetworkDoesNotSupportGassetConversionYet",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "GasPorterOnDestinationNetworkDoesNotSupportGassetConversionViaDexYet",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "GassetAmountCannotBeZero",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "GassetCannotBeDolphinAddressDidYouMeanAddressZero",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "GassetConversionViaMessageIsDisabledInAuthorization",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "GassetPermitDataMustBeEmptyWhenGassetIsNativeToken",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "GassetTypeCannotBeERC20TokenWhenNativeTokensAreTheSame",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "GassetTypeCannotBeNativeTokenWhenNativeTokensAreDifferent",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InsufficientAmountInERC20Permit",
+        "inputs": [
+            {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "minimumAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "InsufficientMessageValue",
+        "inputs": [
+            {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "minimumAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "InvalidConversionNonce",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidGassetTypeAndGassetSourceCombination",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidInitialization",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidToken",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "NotInitializing",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "OriginNetworkCannotBeCurrentNetwork",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SignerInAuthorizationDataAndActualSignerDoNotMatch",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SwapCalldataCannotBeEmptyWhenGassetSourceIsDexSwap",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SwapCalldataCannotBeProvidedWhenMessageValueIsProvided",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SwapCalldataMustBeEmptyWhenGassetSourceIsNotDexSwap",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SwapFailedBecauseDexGaveInsufficientAmount",
+        "inputs": [
+            {
+                "name": "amount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "SwapFailedBecauseDexRevertedWithoutExplanation",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ThisFunctionCanOnlyBeCalledByGasPorter",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "TokenAmountCannotBeZero",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "TokenPermitDataMustBeEmptyWhenAssetAndGassetAreTheSameAndGassetPermitDataIsProvided",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "TokenPermitDataMustBeEmptyWhenAssetIsNativeToken",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "UnknownFunctionSelectorInERC20Permit",
+        "inputs": []
+    }
+]

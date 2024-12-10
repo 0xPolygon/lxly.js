@@ -36,11 +36,12 @@ export interface ICargo {
 
 export interface IConversionAuthorization {
     originNetworkID: number;
-    originNetworkTxHash: string;
+    trackingNumber: number;
+    signer: string;
     conversionNonce: number;
-    settlementTokenDestinationAddress: string;
-    settlementTokenDestinationPermitData: string;
-    settlementTokenDestinationAmount: string;
-    destinationSwapCalldata: string;
+    gassetDestinationAddress: string;
+    gassetDestinationPermitData: string;
+    gassetDestinationAmount: string;
     destinationNativeTokenMinimumAmount: string;
+    deadline: number;
 }
