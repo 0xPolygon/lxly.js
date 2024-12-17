@@ -184,12 +184,12 @@ export default [
                                 "internalType": "uint256"
                             },
                             {
-                                "name": "destinationNativeTokenMinimumAmountFromDex",
-                                "type": "uint256",
-                                "internalType": "uint256"
+                                "name": "destinationSwapCalldata",
+                                "type": "bytes",
+                                "internalType": "bytes"
                             },
                             {
-                                "name": "destinationNativeTokenMinimumAmountFromMsg",
+                                "name": "destinationNativeTokenMinimumAmount",
                                 "type": "uint256",
                                 "internalType": "uint256"
                             },
@@ -206,15 +206,10 @@ export default [
                         "internalType": "bytes"
                     }
                 ]
-            },
-            {
-                "name": "swapCalldata",
-                "type": "bytes",
-                "internalType": "bytes"
             }
         ],
         "outputs": [],
-        "stateMutability": "payable"
+        "stateMutability": "nonpayable"
     },
     {
         "type": "function",
@@ -261,12 +256,12 @@ export default [
                         "internalType": "uint256"
                     },
                     {
-                        "name": "destinationNativeTokenMinimumAmountFromDex",
-                        "type": "uint256",
-                        "internalType": "uint256"
+                        "name": "destinationSwapCalldata",
+                        "type": "bytes",
+                        "internalType": "bytes"
                     },
                     {
-                        "name": "destinationNativeTokenMinimumAmountFromMsg",
+                        "name": "destinationNativeTokenMinimumAmount",
                         "type": "uint256",
                         "internalType": "uint256"
                     },
@@ -281,16 +276,6 @@ export default [
                 "name": "signer",
                 "type": "address",
                 "internalType": "address"
-            },
-            {
-                "name": "swapCalldata",
-                "type": "bytes",
-                "internalType": "bytes"
-            },
-            {
-                "name": "useDex",
-                "type": "bool",
-                "internalType": "bool"
             }
         ],
         "outputs": [],
@@ -747,6 +732,28 @@ export default [
     },
     {
         "type": "error",
+        "name": "AddressEmptyCode",
+        "inputs": [
+            {
+                "name": "target",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
+        "name": "AddressInsufficientBalance",
+        "inputs": [
+            {
+                "name": "account",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "type": "error",
         "name": "AuthorizationExpired",
         "inputs": []
     },
@@ -757,12 +764,22 @@ export default [
     },
     {
         "type": "error",
-        "name": "CannotDetermineConversionBecauseWrappedTokenDoesNotExist",
+        "name": "CannotDetermineConversionBecauseRepresentativeTokenDoesNotExist",
         "inputs": []
     },
     {
         "type": "error",
-        "name": "CannotDetermineGassetBecauseWrappedTokenDoesNotExist",
+        "name": "CannotDetermineConversionForThisGasset",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "CannotDetermineConversionMakeSureDestinationNetworkParametersAreCorrect",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "CannotDetermineGassetBecauseRepresentativeTokenDoesNotExist",
         "inputs": []
     },
     {
@@ -774,22 +791,6 @@ export default [
         "type": "error",
         "name": "CannotReturnExcessiveMessageValueToYou",
         "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "CannotReturnNativeTokenToCaller",
-        "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "ConversionFailedBecauseRecipientWouldNotReceiveMinimumAmountOfNativeToken",
-        "inputs": [
-            {
-                "name": "amount",
-                "type": "uint256",
-                "internalType": "uint256"
-            }
-        ]
     },
     {
         "type": "error",
@@ -830,6 +831,11 @@ export default [
     },
     {
         "type": "error",
+        "name": "FailedInnerCall",
+        "inputs": []
+    },
+    {
+        "type": "error",
         "name": "GasPorterOnCurrentNetworkDoesNotSupportDexSwapAsGassetSourceYet",
         "inputs": []
     },
@@ -840,7 +846,7 @@ export default [
     },
     {
         "type": "error",
-        "name": "GasPorterOnDestinationNetworkDoesNotSupportGassetConversionViaDexYet",
+        "name": "GasPorterOnDestinationNetworkDoesNotSupportGassetConversionYet",
         "inputs": []
     },
     {
@@ -851,11 +857,6 @@ export default [
     {
         "type": "error",
         "name": "GassetCannotBeDolphinAddressDidYouMeanAddressZero",
-        "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "GassetConversionViaMessageIsDisabledInAuthorization",
         "inputs": []
     },
     {
@@ -934,6 +935,17 @@ export default [
         "type": "error",
         "name": "OriginNetworkCannotBeCurrentNetwork",
         "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "SafeERC20FailedOperation",
+        "inputs": [
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
     },
     {
         "type": "error",
