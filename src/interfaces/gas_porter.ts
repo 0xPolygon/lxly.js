@@ -32,6 +32,8 @@ export interface ICargo {
     swapCalldata: string;
     tokenPermitData: string;
     forceUpdateGlobalExitRoot: boolean;
+    // Tracking:
+    trackingNumber: string;
 }
 
 export interface IConversionAuthorization {
@@ -42,6 +44,7 @@ export interface IConversionAuthorization {
     gassetDestinationAddress: string;
     gassetDestinationPermitData: string;
     gassetDestinationAmount: string;
+    destinationSwapCalldata: string;
     destinationNativeTokenMinimumAmount: string;
     deadline: number;
 }
