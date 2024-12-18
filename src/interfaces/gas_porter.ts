@@ -32,15 +32,19 @@ export interface ICargo {
     swapCalldata: string;
     tokenPermitData: string;
     forceUpdateGlobalExitRoot: boolean;
+    // Tracking:
+    trackingNumber: string;
 }
 
 export interface IConversionAuthorization {
     originNetworkID: number;
-    originNetworkTxHash: string;
+    trackingNumber: number;
+    signer: string;
     conversionNonce: number;
-    settlementTokenDestinationAddress: string;
-    settlementTokenDestinationPermitData: string;
-    settlementTokenDestinationAmount: string;
+    gassetDestinationAddress: string;
+    gassetDestinationPermitData: string;
+    gassetDestinationAmount: string;
     destinationSwapCalldata: string;
     destinationNativeTokenMinimumAmount: string;
+    deadline: number;
 }
