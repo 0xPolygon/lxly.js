@@ -1,7 +1,7 @@
 # LxLy SDK
 
 [![GitHub version](https://badge.fury.io/gh/0xpolygon%2Flxly.js.svg)](https://badge.fury.io/gh/0xpolygon%2Flxly.js)
-[![Build Status](https://github.com/0xpolygon/lxly.js/workflows/CI/badge.svg?branch=main)](https://github.com/0xPolygon/lxly.js/actions/workflows/ci.yml)
+[![Build Status](https://github.com/0xPolygon/lxly.js/actions/workflows/ci.yml/badge.svg)](https://github.com/0xPolygon/lxly.js/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/%400xpolygon%2Flxlyjs.svg)](https://badge.fury.io/js/%40maticnetwork%2Flxlyjs)
 [![GitHub](https://img.shields.io/github/license/0xpolygon/lxly.js)](https://github.com/0xPolygon/lxly.js/blob/main/LICENSE)
 
