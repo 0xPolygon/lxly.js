@@ -7,6 +7,7 @@ import PolygonZkEVMGlobalExitRootL2 from "./PolygonZkEVMGlobalExitRootL2";
 import ZkEVMBridgeAdapter from "./ZkEVMBridgeAdapter";
 import ZkEVMWrapper from "./ZkEVMWrapper";
 import GasPorter from "./GasPorter";
+import GenericVaultBridgeToken from "./GenericVaultBridgeToken";
 
 export default {
     GasPorter,
@@ -17,5 +18,6 @@ export default {
     PolygonZkEVMGlobalExitRootL2,
     ZkEVMBridgeAdapter,
     ZkEVMWrapper,
-    BridgeExtension
+    BridgeExtension,
+    GenericVaultBridgeToken
 }

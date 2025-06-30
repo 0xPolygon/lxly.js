@@ -7,6 +7,7 @@ import ZkEVMBridgeAdapter from "./ZkEVMBridgeAdapter";
 import ZkEVMWrapper from "./ZkEVMWrapper";
 import BridgeExtension from "./BridgeExtension";
 import GasPorter from "./GasPorter";
+import GenericVaultBridgeToken from "./GenericVaultBridgeToken";
 
 export default {
     GasPorter,
@@ -18,4 +19,5 @@ export default {
     ZkEVMBridgeAdapter,
     ZkEVMWrapper,
     BridgeExtension,
+    GenericVaultBridgeToken
 }

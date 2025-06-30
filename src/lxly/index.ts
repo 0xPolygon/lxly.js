@@ -1,4 +1,5 @@
 import { ERC20 } from "./erc20";
+import { VaultBridge } from "./vault_bridge";
 import { Contract } from "./contract";
 import { Bridge } from "./bridge";
 import { BridgeUtil } from "./bridge_util";
@@ -86,6 +87,24 @@ export class LxLyClient extends BridgeClient {
             tokenAddress,
             networkId,
             bridgeAdapterAddress,
+            this.client,
+            this.getContracts_.bind(this)
+        );
+    }
+
+    /**
+     * creates instance of vault bridge token
+     *
+     * @param {string} vaultAddress
+     * @param {boolean} networkId
+     *
+     * @returns
+     * @memberof VaultBridge
+     */
+    vaultBridge(vaultAddress: string, networkId: number) {
+        return new VaultBridge(
+            vaultAddress,
+            networkId,
             this.client,
             this.getContracts_.bind(this)
         );
