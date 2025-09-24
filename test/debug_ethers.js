@@ -1,4 +1,4 @@
-const { LxLyClient, use, Converter } = require("@maticnetwork/lxlyjs");
+const { LxLyClient, use, Converter, setProofApi } = require("@maticnetwork/lxlyjs");
 const { Web3ClientPlugin } = require("@maticnetwork/maticjs-ethers");
 
 const { providers, Wallet } = require("ethers");
@@ -36,9 +36,27 @@ const execute = async () => {
         defaultConfig: {
           from
         }
+      },
+      29: {
+        provider: new Wallet(user1.privateKey, new providers.JsonRpcProvider(configuration[29].rpc)),
+        configuration: {
+          bridgeAddress: configuration[29].bridgeAddress,
+          isEIP1559Supported: false
+        },
+        defaultConfig: {
+          from
+        }
       }
     }
   });
+
+  const matic = client.erc20(tokens[0].ether, 0);
+
+  const claimtx = await matic.claimAsset("0x5b61994ffa067482d519b9fc5a2e18cb0fc9308b6b30f4a9375be5175b2b96ac", 29, {returnTransaction: true})
+  return console.log(claimtx)
+
+  // console.log(await claimtx.getTransactionHash())
+  // return;
 
   const N0ERC20Token = client.erc20(tokens[0].erc20, 0);
   const N0EtherToken = client.erc20(tokens[0].ether, 0);
@@ -89,7 +107,7 @@ const execute = async () => {
   // // Bridge ERC20 from 0 to 1 with gas
   // var tx = await N0ERC20Token.bridgeAssetWithGas("10000000000000000000", from, '100000000000000000', 1, {returnTransaction: false});
   // return console.log("hash", await tx.getTransactionHash());
-  
+
   // // Bridge Ether from 1 to 0
   // var tx = await N1EtherToken.bridgeAsset("1000000000000000", from, 0, {returnTransaction: false});
   // return console.log("hash", await tx.getTransactionHash());

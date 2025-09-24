@@ -27,6 +27,7 @@
     "@maticnetwork/lxlyjs": "2.1.1",
     "@maticnetwork/maticjs-ethers": "^1.0.3",
     "@maticnetwork/maticjs-web3": "^1.0.4",
-    "@truffle/hdwallet-provider": "^1.7.0"
+    "@truffle/hdwallet-provider": "^1.7.0",
+    "axios": "^1.9.0"
   }
 }
