@@ -177,7 +177,7 @@ export class ERC20 extends Token {
      */
     bridgeAsset(amount: TYPE_AMOUNT, userAddress: string, destinationNetworkId: number, option: IBridgeTransactionOption = {}) {
         const permitData = option.permitData || '0x';
-        const forceUpdateGlobalExitRoot = option.forceUpdateGlobalExitRoot || true;
+        const forceUpdateGlobalExitRoot = option.forceUpdateGlobalExitRoot ?? true;
 
         const client = this.client.providers[this.contractParam.networkId].provider;
 
@@ -318,7 +318,7 @@ export class ERC20 extends Token {
             ['uint256'],
         );
 
-        const forceUpdateGlobalExitRoot = option.forceUpdateGlobalExitRoot || true;
+        const forceUpdateGlobalExitRoot = option.forceUpdateGlobalExitRoot ?? true;
 
         return this.getPermitData(amountInABI, option).then(permitData => {
             return this.bridge.bridgeAsset(
