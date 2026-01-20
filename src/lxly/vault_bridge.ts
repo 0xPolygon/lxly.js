@@ -88,4 +88,42 @@ export class VaultBridge extends Token {
             });
         });
     }
+
+    claimAndRedeemWithBridgeDetails(
+        sourceNetworkId: number,
+        depositCount: number,
+        originTokenNetwork: number,
+        originTokenAddress: string,
+        destinationNetwork: number,
+        destinationAddress: string,
+        amount: string,
+        metadata: string,
+        option?: ITransactionOption
+    ) {
+        return this.bridgeUtil.buildPayloadForClaimWithBridgeDetails(
+            sourceNetworkId,
+            depositCount,
+            originTokenNetwork,
+            originTokenAddress,
+            destinationNetwork,
+            destinationAddress,
+            amount,
+            metadata
+        ).then((payload: IClaimPayload) => {
+            return this.method(
+                "claimAndRedeem",
+                payload.smtProof,
+                payload.smtProofRollup,
+                payload.globalIndex,
+                payload.mainnetExitRoot,
+                payload.rollupExitRoot,
+                payload.destinationAddress,
+                payload.amount,
+                payload.destinationAddress,
+                payload.metadata
+            ).then(method => {
+                return this.processWrite(method, option);
+            });
+        });
+    }
 }

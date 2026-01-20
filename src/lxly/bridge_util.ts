@@ -130,4 +130,31 @@ export class BridgeUtil {
             });
         });
     }
+
+    buildPayloadForClaimWithBridgeDetails(
+        networkId: number,
+        depositCount: number,
+        originNetwork: number,
+        originTokenAddress: string,
+        destinationNetwork: number,
+        destinationAddress: string,
+        amount: string,
+        metadata: string
+    ) {
+        return this.getProof_(networkId, depositCount).then((proof: IMerkleProof) => {
+            const payload = {} as IClaimPayload;
+            payload.smtProof = proof.merkle_proof;
+            payload.smtProofRollup = proof.rollup_merkle_proof;
+            payload.globalIndex = this.computeGlobalIndex(depositCount, networkId).toString();
+            payload.mainnetExitRoot = proof.main_exit_root;
+            payload.rollupExitRoot = proof.rollup_exit_root;
+            payload.originNetwork = originNetwork;
+            payload.originTokenAddress = originTokenAddress;
+            payload.destinationNetwork = destinationNetwork;
+            payload.destinationAddress = destinationAddress;
+            payload.amount = amount;
+            payload.metadata = metadata;
+            return payload;
+        });
+    }
 }
