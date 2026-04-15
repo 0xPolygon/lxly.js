@@ -575,6 +575,7 @@ export class ERC20 extends Token {
                     expiry: Math.floor((Date.now() + 3600000) / 1000),
                     allowed: true,
                 };
+                break;
             case Permit.EIP_2612:
             case Permit.UNISWAP:
 
