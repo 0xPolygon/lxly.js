@@ -70,7 +70,7 @@ export class VaultBridge extends Token {
         option?: ITransactionOption
     ) {
         return this.bridgeUtil.buildPayloadForClaim(
-            transactionHash, sourceNetworkId, option.bridgeIndex || 0
+            transactionHash, sourceNetworkId, option?.bridgeIndex ?? 0
         ).then((payload: IClaimPayload) => {
             return this.method(
                 "claimAndRedeem",
