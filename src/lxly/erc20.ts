@@ -366,7 +366,7 @@ export class ERC20 extends Token {
      */
     claimCustomERC20(transactionHash: string, sourceNetworkId: number, option?: ITransactionOption) {
         return this.bridgeUtil.buildPayloadForClaim(
-            transactionHash, sourceNetworkId, option.bridgeIndex || 0
+            transactionHash, sourceNetworkId, option?.bridgeIndex ?? 0
         ).then((payload: IClaimPayload) => {
             return this.bridge.claimMessage(
                 payload.smtProof,
@@ -397,7 +397,7 @@ export class ERC20 extends Token {
      */
     claimAsset(transactionHash: string, sourceNetworkId: number, option?: ITransactionOption) {
         return this.bridgeUtil.buildPayloadForClaim(
-            transactionHash, sourceNetworkId, option.bridgeIndex || 0
+            transactionHash, sourceNetworkId, option?.bridgeIndex ?? 0
         ).then((payload: IClaimPayload) => {
             return this.bridge.claimAsset(
                 payload.smtProof,
